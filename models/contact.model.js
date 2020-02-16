@@ -19,4 +19,9 @@ let ContactSchema = new Schema({
     }
 
 })
+ContactSchema.statics = {
+    createNewRecord(itemObj){
+        return this.create(itemObj);
+    }
+}
 module.exports = mongoose.model("contact",ContactSchema)
