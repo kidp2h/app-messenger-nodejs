@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+var mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 let ContactSchema = new Schema({
     id: String,
