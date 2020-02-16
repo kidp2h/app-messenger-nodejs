@@ -1,17 +1,13 @@
-import mongoose from "mongoose";
-import bluebird from "bluebird";
+var mongoose = require("mongoose");
+var bluebird = require("bluebird");
 
-let connectDB = () => {
-  mongoose.Promise = bluebird
-  let DB_CONNECTION = "mongodb";
-  let DB_HOST = "localhost"
-  let DB_PORT = 27017
-  let DB_NAME = "app_messenger"
-  let DB_USERNAME = ""
-  let DB_PASSWORD = ""
+let connectDatabase = () => {
+  mongoose.Promise = bluebird;
 
-  let URI = `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+  let URI = `${process.env.DB_CONNECTION}://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
-  return mongoose.connect(URI, {useMongoClient: true})
+  return mongoose.connect(URI, {
+    useMongoClient: true
+  })
 }
 module.exports = connectDatabase
