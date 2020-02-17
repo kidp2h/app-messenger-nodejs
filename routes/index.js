@@ -16,5 +16,15 @@ router.get('/test', async function (req, res, next) {
   res.send(result);
   
 });
+router.get('/',  function (req, res, next) {
+  
+  res.render("auth/loginRegister")
+  
+});
+router.get('/main',  function (req, res, next) {
+  
+  res.render("main/main")
+  
+});
 
 module.exports = router;
