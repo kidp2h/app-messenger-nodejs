@@ -86,8 +86,22 @@
                         <h4 class="modal-title">Đăng nhập</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger">Error example.</div>
-                        <div class="alert alert-success">Success example.</div>
+                        <% if (errors != "") { %>
+                            <script>openRegisterModal();</script>
+                            <% errors.forEach(item => { %>
+                                 <div class="alert alert-danger"><%= item %></div> 
+                            <% }) %>
+                            
+                        <% } %>
+                        <% if (success != "") { %>
+                            <script>openRegisterModal();</script>
+                         <div class="alert alert-success"><%= success %></div>
+                        <% } %>
+                            
+                       
+                         
+                        <!-- <div class="alert alert-danger">Error example.</div> -->
+                        
 
                         <!-- include('sections/login');-->
                         <div class="box">
