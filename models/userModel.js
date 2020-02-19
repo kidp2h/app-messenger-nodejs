@@ -67,11 +67,21 @@ let UserSchema = new Schema({
     }
 });
 UserSchema.statics = {
-    createNewRecord(itemObj){
+    createNewRecord(itemObj) {
         return this.create(itemObj);
     },
-    findEmail(email){
-        return this.findOne({"local.email":email}).exec();
+    findEmail(email) {
+        return this.findOne({
+            "local.email": email
+        }).exec();
+    },
+    active(token) {
+        return this.findOneAndUpdate({
+            "local.verifyToken": token
+        }, {
+            "local.isActive": true,
+            "local.verifyToken": null
+        }).exec();
     }
 }
-module.exports = mongoose.model("user",UserSchema)
+module.exports = mongoose.model("user", UserSchema)

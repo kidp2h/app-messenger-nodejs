@@ -13,5 +13,5 @@ import authValid from "../validation/authValidation"
 connectDatabase();
 
 router.post('/register', authValid.register, renderAuth.postRegister);
-
+router.get('/active/:code',renderAuth.activeUser)
 module.exports = router;
