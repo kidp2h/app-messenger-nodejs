@@ -48,11 +48,30 @@ var activeUser = (req, res) => {
     }
 
 }
-var postLogin = (req, res) => {
-
+var postLogout = (req, res) => {
+req.logout()
+req.flash("success",transSuccess.logoutSuccess)
+res.redirect("/users/login-register")
+}
+var checkLogin = (req, res, next) => {
+    if(!req.isAuthenticated()){
+        return res.redirect("/users/login-register")
+    }else{
+        next();
+    }
+}
+var checkLogout = (req, res, next) => {
+    if(req.isAuthenticated()){
+        return res.redirect("/users/main")
+    }else{
+        next();
+    }
 }
 module.exports = {
     indexLoginRegister: indexLoginRegister,
     postRegister: postRegister,
-    activeUser: activeUser
+    activeUser: activeUser,
+    postLogout: postLogout,
+    checkLogin : checkLogin,
+    checkLogout : checkLogout
 }

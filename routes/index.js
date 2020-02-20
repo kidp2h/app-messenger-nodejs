@@ -32,8 +32,6 @@ import authValid from "../validation/authValidation"
 //   console.log(result)
 //   res.send(result);
 // });
-router.get('/login-register',  renderAuth.indexLoginRegister)
-router.get('/main',  renderMain);
 
 
 module.exports = router;

@@ -16,15 +16,18 @@ import initPassportLocal from "../controllers/passportControllers/local"
 connectDatabase();
 
 initPassportLocal();
+router.get('/login-register',renderAuth.checkLogout,renderAuth.indexLoginRegister)
 
-router.post('/register', authValid.register, renderAuth.postRegister);
-router.get('/active/:code',renderAuth.activeUser);
-router.post("/login",passport.authenticate("local",{
-    successRedirect : "/main",
-    failureRedirect :"/login-register",
+router.post('/register',renderAuth.checkLogout, authValid.register, renderAuth.postRegister);
+router.get('/active/:code',renderAuth.checkLogout,renderAuth.activeUser);
+router.post("/login",renderAuth.checkLogout,passport.authenticate("local",{
+    successRedirect : "/users/main",
+    failureRedirect :"/users/login-register",
     succesFlash : true,
     failureFlash : true
 
 
 }))
+router.get('/main',renderAuth.checkLogin,renderMain);
+router.get("/logout",renderAuth.checkLogin,renderAuth.postLogout)
 module.exports = router;

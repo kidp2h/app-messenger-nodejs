@@ -33,19 +33,20 @@ app.use(express.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use(passport.initialize()) // config passport
-app.use(passport.session())
+
 app.use(flash());
 app.use(session({
   key: "express.sid",
   secret: "mySecret",
   store : sessionStore,
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   cookie: {
     maxAge: 86400000 // 1 day 
   }
 }));
+app.use(passport.initialize()) // config passport
+app.use(passport.session())
 
 
 app.use(express.static(path.join(__dirname, 'public')));
