@@ -1,6 +1,7 @@
 import result from "express-validator/check"
 import handleAuth from "../handleAuth/handleAuth"
 import {transSuccess} from "../lang/vi"
+
 var indexLoginRegister = (req, res) => {
 
     res.render("auth/loginRegister", {
@@ -8,7 +9,7 @@ var indexLoginRegister = (req, res) => {
         success: req.flash("success")
     })
 }
-var postRegister =  async (req, res) => {
+var postRegister = async (req, res) => {
     var arrErrors = [];
     //var arrSuccess = []
     var objResult = result.validationResult(req)
@@ -22,20 +23,36 @@ var postRegister =  async (req, res) => {
         req.flash("errors", arrErrors)
         res.redirect("/login-register")
     } else {
-        let result = await handleAuth.registerUser(req.body.email, req.body.password, req.body.gender)
-        if(result){
+        let result = await handleAuth.registerUser(req.body.email, req.body.password, req.body.gender, req.protocol, req.get("host"))
+        if (result) {
             req.flash("errors", result)
             res.redirect("/login-register")
-        }else{
+        } else {
             req.flash("success", transSuccess.registerSuccess)
             res.redirect("/login-register")
         }
-       
+
     }
 
 
 }
+var activeUser = (req, res) => {
+    let codeActive = req.params.code;
+    let result = handleAuth.activeUser(codeActive)
+    if (result) {
+        req.flash("errors", result)
+        res.redirect("/login-register")
+    } else {
+        req.flash("success", transSuccess.activeSuccess)
+        res.redirect("/login-register")
+    }
+
+}
+var postLogin = (req, res) => {
+
+}
 module.exports = {
     indexLoginRegister: indexLoginRegister,
-    postRegister: postRegister
+    postRegister: postRegister,
+    activeUser: activeUser
 }
