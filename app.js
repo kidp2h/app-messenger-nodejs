@@ -7,6 +7,7 @@ var logger = require('morgan');
 var session = require("express-session")
 var flash = require('connect-flash');
 var connectMongo = require("connect-mongo");
+var passport = require("passport")
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -32,6 +33,8 @@ app.use(express.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
+app.use(passport.initialize()) // config passport
+app.use(passport.session())
 app.use(flash());
 app.use(session({
   key: "express.sid",
