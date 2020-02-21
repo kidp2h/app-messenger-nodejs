@@ -22,5 +22,6 @@ export const transSuccess = {
 
     },
     activeSuccess : "Tài khoản đã được kích hoạt, hãy thưởng thức ứng dụng chat trực tuyến <3",
-    loginSuccess : "Đăng nhập thành công. Hãy thưởng thức ứng dụng chat trực tuyến"
+    loginSuccess : "Đăng nhập thành công. Hãy thưởng thức ứng dụng chat trực tuyến",
+    logoutSuccess : "Đăng xuất thành công !!"
 }
