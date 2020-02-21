@@ -12,13 +12,14 @@ import passport from "passport"
 
 import initPassportLocal from "../controllers/passportControllers/local"
 import initPassportFacebook from "../controllers/passportControllers/facebook"
-
+import initPassportGoogle from "../controllers/passportControllers/google"
 
 //Connect to MongoDB
 connectDatabase();
 
 initPassportLocal();
 initPassportFacebook();
+initPassportGoogle();
 
 router.get('/login-register',renderAuth.checkLogout,renderAuth.indexLoginRegister) // Login Local
 
@@ -39,6 +40,13 @@ router.get('/auth/facebook/callback',renderAuth.checkLogout,passport.authenticat
 successRedirect : "/users/main",
 failureRedirect :"/users/login-register"
 }))
+
+// router.get('/auth/google',renderAuth.checkLogout,passport.authenticate("google",{scope :["email"]}))
+
+// router.get('/auth/google/callback',renderAuth.checkLogout,passport.authenticate("google",{
+// successRedirect : "/users/main",
+// failureRedirect :"/users/login-register"
+// }))
 
 router.get('/main',renderAuth.checkLogin,renderMain);
 

@@ -1,37 +1,36 @@
 import passport from "passport"
-import passportFacebook from "passport-facebook"
+import passportGoogle from "passport-google-oauth"
 import UserModel from "../../models/userModel"
 import {transErrors, transSuccess} from "../../lang/vi"
 
-let FacebookStrategy = passportFacebook.Strategy
+let GoogleStrategy = passportGoogle.OAuth2Strategy
 
-const fbAppID = process.env.FB_CLIENT_ID
-const fbKeySecret = process.env.FB_KEY_SECRET
-const fbCallbackURL = process.env.FB_CALLBACK_URL
-let initPassportFacebook = () => {
-    passport.use(new FacebookStrategy({
-        clientID : fbAppID,
-        clientSecret : fbKeySecret,
-        callbackURL :fbCallbackURL,
-        passReqToCallback : true,
-        profileFields:["email","gender","displayName"]
+const ggAppID = process.env.GG_CLIENT_ID
+const ggKeySecret = process.env.GG_KEY_SECRET
+const ggCallbackURL = process.env.GG_CALLBACK_URL
+let initPassportGoogle = () => {
+    passport.use(new GoogleStrategy({
+        clientID : ggAppID,
+        clientSecret : ggKeySecret,
+        callbackURL :ggCallbackURL,
+        passReqToCallback : true
     },async (req, accessToken, refreshToken, profile, done) => {
-        let user = await UserModel.findFacebookByUID(profile.id)
+        let user = await UserModel.findGoogleByUID(profile.id)
         if(user){
             return done(null,user,req.flash("success",transSuccess.loginSuccess))
         }else{
             //create user in database
-            let newUserFacebook = {
+            let newUserGoogle = {
                 username : profile.displayName,
                 gender : profile.gender,
                 local : {isActive : true},
-                facebook :{
+                google :{
                     uid: profile.id,
                     token: accessToken,
                     email: profile.emails[0].value
                 }
             }
-            let newUser = await UserModel.createNewRecord(newUserFacebook)
+            let newUser = await UserModel.createNewRecord(newUserGoogle)
             return done(null,newUser,req.flash("success",transSuccess.loginSuccess))
         }
         
@@ -52,4 +51,4 @@ passport.deserializeUser((id, done) =>{
         })
 })
 }
-module.exports = initPassportFacebook
+module.exports = initPassportGoogle
