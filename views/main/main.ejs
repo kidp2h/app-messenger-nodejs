@@ -17,7 +17,6 @@
 </head>
 
 <body onload="spinLoaded()">
-    <%= user %>
     <!--Icon loader-->
     <div id="loader"></div>
 
@@ -87,7 +86,7 @@
                     </li>
                     <li class="dropdown" id="dropdown-navbar-user" data-uid="user._id">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img class="avatar-small" src="/images/users/<%= user.avatar %> " alt="">
+                            <img class="avatar-small" id="avatarUser" src="/images/users/<%= user.avatar %> " alt="">
                             <%= user.username %>
                             <span class="caret"></span>
                         </a>
@@ -543,7 +542,7 @@
                                     <div class="col-md-3">
                                         <div class="text-center" id="div-update-avatar">
                                             <div id="image-edit-profile">
-                                                <img src="/images/users/<%=user.avatar %> " class="avatar img-circle"
+                                                <img src="/images/users/<%=user.avatar %>" class="avatar img-circle"
                                                     alt="avatar">
                                             </div>
                                             <h6>Tải lên một ảnh mới...</h6>
@@ -554,15 +553,15 @@
                                     </div>
                                     <!-- edit form column -->
                                     <div class="col-md-9 personal-info">
-                                        <div class="alert alert-danger alert-dismissable">
+                                        <div class="alert alert-danger alert-dismissable alert-update-error">
                                             <a class="panel-close close" data-dismiss="alert">×</a>
-                                            Update user error example.<br>
+                                            <span> Update user error example.</span>
                                             <!-- <script>openProfileModal();</script> -->
                                         </div>
 
-                                        <div class="alert alert-success alert-dismissable">
+                                        <div class="alert alert-success alert-dismissable alert-update-success">
                                             <a class="panel-close close" data-dismiss="alert">×</a>
-                                            Update user success example.<br>
+                                            <span> Update user success example.</span>
                                             <!-- <script>openProfileModal();</script> -->
                                         </div>
                                         <% if (user.local.email) { %>
@@ -725,7 +724,7 @@
                                     <li data-uid="test-uid-01">
                                         <div class="contactPanel">
                                             <div class="user-avatar">
-                                                <img src="/images/users/avatar-default.jpg" alt="">
+                                                <img src="/images/users/defaultUser.png" alt="">
                                             </div>
                                             <div class="user-name">
                                                 <p>

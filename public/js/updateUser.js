@@ -2,6 +2,8 @@ var newInfoUser = {}
 var userAvatar = null;
 var avatarSrc = null;
 $(document).ready(function () {
+    $(".alert-update-success").slideUp()
+    $(".alert-update-error").slideUp();
     /* ---------------- preview image when user upload new image ---------------- */
     $("#input-change-avatar").bind("change", function () {
         let fileData = $(this).prop("files")[0]
@@ -76,11 +78,19 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 data:userAvatar,
-                success: function (response) {
-
+                success: function (result) {
+                    if(result.imageSource){
+                        $(".alert-update-success").slideDown().find("span").text("Update thành công")
+                        alertify.notify("Update thành công", "success", 5)
+                        $("#avatarUser").attr("src",result.imageSource)
+                    }
                 },
                 error:function(err){
-                    
+                    console.log(err);
+                    $(".alert-update-error").slideDown().find("span").text(err.responseText)
+                    alertify.notify(err.responseText, "error", 5)
+                    $("#cancelUpdate").click();
+                    return false
                 }
             });
         }

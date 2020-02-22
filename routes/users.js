@@ -1,10 +1,10 @@
-/* --------------------------------- LIBRARY -------------------------------- */
+
 var renderMain = require("../controllers/mainController")
 var renderAuth = require("../controllers/authController")
-
+var renderUser = require("../controllers/userController")
 import express from 'express';
 var router = express.Router();
-
+/* --------------------------------- LIBRARY -------------------------------- */
 import connectDatabase from "../config/connectDatabase"
 import contactModel from "../models/contactModel"
 import {auth , main} from "../controllers/index"
@@ -47,4 +47,5 @@ router.get('/main',renderAuth.checkLogin,renderMain.getMain);
 
 router.get("/logout",renderAuth.checkLogin,renderAuth.postLogout)
 
+router.put("/updateAvatar",renderAuth.checkLogin,renderUser.updateAvatar)
 module.exports = router;
