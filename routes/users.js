@@ -48,4 +48,7 @@ router.get('/main',renderAuth.checkLogin,renderMain.getMain);
 router.get("/logout",renderAuth.checkLogin,renderAuth.postLogout)
 
 router.put("/updateAvatar",renderAuth.checkLogin,renderUser.updateAvatar)
+
+router.put("/updateInfoUser",renderAuth.checkLogin,renderUser.updateInfo)
+
 module.exports = router;

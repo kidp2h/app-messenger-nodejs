@@ -1,6 +1,6 @@
 import multer from 'multer';
 import {paths} from "../config/pathStorage"
-import {transErrors, transSuccess} from "../lang/vi"
+import {transErrors,transSuccess} from "../lang/vi"
 import uuid from 'uuid/v4';
 import handleUser from '../handleUser/handleUser';
 import fse from 'fs-extra';
@@ -22,40 +22,57 @@ var storage = multer.diskStorage({
 
 var uploadFile = multer({
     storage: storage,
-    limits: {fileSize: 1048576}
+    limits: {
+        fileSize: 1048576
+    }
 }).single("avatar");
 
-let updateAvatar =  (req, res) => {
+let updateAvatar = (req, res) => {
     uploadFile(req, res, async (error) => {
-        if(error){
+        if (error) {
             console.log(error);
-            if(error.message){
+            if (error.message) {
                 return res.status(500).send(transErrors.fileSize)
-            }else{
+            } else {
                 return res.status(500).send(transErrors.fileType)
             }
-        }else{
+        } else {
             let avatarUpdate = {
                 avatar: req.file.filename,
                 updatedAt: Date.now(),
             }
             // update avatar to mongodb
-            let userUpdate = await handleUser.updateUser(req.user._id,avatarUpdate)
+            let userUpdate = await handleUser.updateUser(req.user._id, avatarUpdate)
             // remove avatar old
             let rm = await fse.remove(`${paths.avatarStorage}/${userUpdate.avatar}`)
             // send back ajax handle data 
             let result = {
                 message: transSuccess.avatarUpdated,
-                imageSource : `/images/users/${req.file.filename}`,
-                rm : rm
+                imageSource: `/images/users/${req.file.filename}`
             }
             console.log(result);
             return res.status(200).send(result)
-            
+
         }
-    } )
+    })
+}
+let updateInfo = async (req, res) => {
+    try {
+        let infoUser = req.body;
+
+        let userUpdate = await handleUser.updateUser(req.user._id, infoUser)
+
+        let result = {
+            messageSuccess: transSuccess.infoUpdated
+        }
+        res.status(200).send(result)
+    } catch (error) {
+        res.status(500).send(status)
+    }
+
 }
 
 module.exports = {
-    updateAvatar: updateAvatar
+    updateAvatar: updateAvatar,
+    updateInfo: updateInfo
 }

@@ -1,7 +1,18 @@
+
 var newInfoUser = {}
 var userAvatar = null;
 var avatarSrc = null;
+
 $(document).ready(function () {
+    var originAvatar = $("#avatarUser").attr("src");
+    var originInfoUser = {
+        username: $("#input-update-username").val(),
+        gender: ($("#input-update-gender-male").is(":checked")) ? $("#input-update-gender-male").val() : $("#input-update-gender-female").val(),
+        address: $("#input-update-address").val(),
+        phone: $("#input-update-phone").val(),
+    }
+    console.log(originInfoUser)
+    console.log(originAvatar)
     $(".alert-update-success").slideUp()
     $(".alert-update-error").slideUp();
     /* ---------------- preview image when user upload new image ---------------- */
@@ -27,6 +38,7 @@ $(document).ready(function () {
                 $("<img>", {
                     "src": file.target.result,
                     "class": "avatar img-circle",
+                    "id": "avatarUpdate",
                     "alt": "avatar"
                 }).appendTo(imagePreview);
             }
@@ -66,33 +78,53 @@ $(document).ready(function () {
         avatarSrc = $(".avatar").attr("src")
         console.log(avatarSrc);
         if ($.isEmptyObject(newInfoUser) == true && !userAvatar) {
-            alertify.notify("Hãy điền đầy đủ thông tin trước khi cập nhật !!!", "error", 5)
+            alertify.notify("Bạn phải upload ảnh hoặc thay đổi thông tin của bạn !!!", "error", 5)
         } else {
-            console.log(avatarSrc);
-            console.log(newInfoUser);
-            console.log(userAvatar);
-            $.ajax({
-                type: "put",
-                url: "/users/updateAvatar",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data:userAvatar,
-                success: function (result) {
-                    if(result.imageSource){
-                        $(".alert-update-success").slideDown().find("span").text("Update thành công")
-                        alertify.notify("Update thành công", "success", 5)
-                        $("#avatarUser").attr("src",result.imageSource)
+            if(userAvatar){
+                $.ajax({
+                    type: "put",
+                    url: "/users/updateAvatar",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: userAvatar,
+                    success: function (result) {
+                        if (result.imageSource) {
+                            alertify.notify("Update thành công", "success", 5)
+                            let newAvatar = $("#avatarUser").attr("src", result.imageSource)
+                            originAvatar = newAvatar
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        $(".alert-update-error").slideDown("slow").find("span").text(err.responseText)
+                        alertify.notify(err.responseText, "error", 5)
+                        $("#cancelUpdate").click();
+                        return false
                     }
-                },
-                error:function(err){
-                    console.log(err);
-                    $(".alert-update-error").slideDown().find("span").text(err.responseText)
-                    alertify.notify(err.responseText, "error", 5)
-                    $("#cancelUpdate").click();
-                    return false
-                }
-            });
+                });
+            }
+            if(!$.isEmptyObject(newInfoUser)){
+                $.ajax({
+                    type: "put",
+                    url: "/users/updateInfoUser",
+                    data: newInfoUser,
+                    success: function (response) {
+                        if(response.messageSuccess){
+                            $("#username-navbar").text(newInfoUser.username)
+                            $(".alert-update-success").slideDown().find("span").text(response.messageSuccess)
+                            alertify.notify(response.messageSuccess, "success", 5)
+                        }
+                    },
+                    error: function (err) {
+                        
+                        alertify.notify(err.responseText, "error", 5)
+                        $("#cancelUpdate").click();
+                        return false
+                    }
+                });
+            }
+            
         }
 
         e.preventDefault();
@@ -100,6 +132,13 @@ $(document).ready(function () {
     $("#cancelUpdate").bind("click", function (e) {
         newInfoUser = {};
         userAvatar = null;
+        $("#avatarUpdate").attr("src",originAvatar)
+        $("#input-update-username").val(originInfoUser.username)
+        if(originInfoUser.gender == "male"){
+            $("#input-update-gender-male").click();
+        }else{
+            $("#input-update-gender-female").click();
+        }
     })
 
 })

@@ -87,7 +87,7 @@
                     <li class="dropdown" id="dropdown-navbar-user" data-uid="user._id">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <img class="avatar-small" id="avatarUser" src="/images/users/<%= user.avatar %> " alt="">
-                            <%= user.username %>
+                            <span id="username-navbar"><%= user.username %></span>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
@@ -542,7 +542,7 @@
                                     <div class="col-md-3">
                                         <div class="text-center" id="div-update-avatar">
                                             <div id="image-edit-profile">
-                                                <img src="/images/users/<%=user.avatar %>" class="avatar img-circle"
+                                                <img src="/images/users/<%=user.avatar %>" id="avatarUpdate" class="avatar img-circle"
                                                     alt="avatar">
                                             </div>
                                             <h6>Tải lên một ảnh mới...</h6>
