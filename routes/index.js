@@ -20,18 +20,4 @@ import {auth , main} from "../controllers/index"
 import authValid from "../validation/authValidation"
 
 
-
-/* GET home page. */
-// router.get('/test', async function (req, res, next) {
-//   let itemObj = {
-//     id :"1",
-//     userId: "231",
-//     contactId: "3434",
-//   }
-//   result = await contactModel.createNewRecord(itemObj)
-//   console.log(result)
-//   res.send(result);
-// });
-
-
 module.exports = router;

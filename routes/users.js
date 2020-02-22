@@ -1,3 +1,4 @@
+/* --------------------------------- LIBRARY -------------------------------- */
 var renderMain = require("../controllers/mainController")
 var renderAuth = require("../controllers/authController")
 
@@ -13,13 +14,15 @@ import passport from "passport"
 import initPassportLocal from "../controllers/passportControllers/local"
 import initPassportFacebook from "../controllers/passportControllers/facebook"
 
-
 //Connect to MongoDB
 connectDatabase();
 
+// init passport
 initPassportLocal();
+
 initPassportFacebook();
 
+/* --------------------------------- ROUTER --------------------------------- */
 router.get('/login-register',renderAuth.checkLogout,renderAuth.indexLoginRegister) // Login Local
 
 router.post('/register',renderAuth.checkLogout, authValid.register, renderAuth.postRegister);
@@ -40,7 +43,7 @@ successRedirect : "/users/main",
 failureRedirect :"/users/login-register"
 }))
 
-router.get('/main',renderAuth.checkLogin,renderMain);
+router.get('/main',renderAuth.checkLogin,renderMain.getMain);
 
 router.get("/logout",renderAuth.checkLogin,renderAuth.postLogout)
 

@@ -3,17 +3,16 @@ import handleAuth from "../handleAuth/handleAuth"
 import {transSuccess} from "../lang/vi"
 
 var indexLoginRegister = (req, res) => {
-
     res.render("auth/loginRegister", {
         errors: req.flash("errors"),
         success: req.flash("success")
     })
 }
+
 var postRegister = async (req, res) => {
     var arrErrors = [];
     //var arrSuccess = []
     var objResult = result.validationResult(req)
-
     if (objResult.isEmpty() === false) {
         var arrResult = objResult.array()
         arrResult.forEach(element => {
@@ -36,6 +35,7 @@ var postRegister = async (req, res) => {
 
 
 }
+
 var activeUser = (req, res) => {
     let codeActive = req.params.code;
     let result = handleAuth.activeUser(codeActive)
@@ -60,6 +60,7 @@ var checkLogin = (req, res, next) => {
         next();
     }
 }
+
 var checkLogout = (req, res, next) => {
     if(req.isAuthenticated()){
         return res.redirect("/users/main")
@@ -67,6 +68,7 @@ var checkLogout = (req, res, next) => {
         next();
     }
 }
+
 module.exports = {
     indexLoginRegister: indexLoginRegister,
     postRegister: postRegister,
