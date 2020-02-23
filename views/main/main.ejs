@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Awesome Chat</title>
     <meta charset="UTF-8">
@@ -14,6 +15,7 @@
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body onload="spinLoaded()">
     <!--Icon loader-->
     <div id="loader"></div>
@@ -23,9 +25,9 @@
         <div class="container-fluid">
             <div class="navbar-header col-sm-3 navbar-left">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>                        
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="https://trungquandev.com/" target="__blank">
                     <img src="/images/logo_favicon/logo-trungquandev.png" alt="logo-trungquandev">
@@ -66,12 +68,14 @@
                                     <h3>Thông báo</h3>
                                     <div class="noti_content">
                                         <span data-uid="${ user.id }">
-                                            <img class="avatar-small" src="/images/users/default-avatar-trungquandev-01.jpg" alt=""> 
+                                            <img class="avatar-small"
+                                                src="/images/users/default-avatar-trungquandev-01.jpg" alt="">
                                             <strong>Trung Quân</strong> đã chấp nhận lời mời kết bạn của bạn!
                                         </span><br><br><br>
 
                                         <span data-uid="${ user.id }">
-                                            <img class="avatar-small" src="/images/users/default-avatar-trungquandev-02.jpg" alt=""> 
+                                            <img class="avatar-small"
+                                                src="/images/users/default-avatar-trungquandev-02.jpg" alt="">
                                             <strong>Trung Quân</strong> đã gửi cho bạn một lời mời kết bạn!
                                         </span><br><br><br>
                                     </div>
@@ -82,8 +86,8 @@
                     </li>
                     <li class="dropdown" id="dropdown-navbar-user" data-uid="user._id">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img class="avatar-small" src="/images/users//default-avatar-trungquandev-02.jpg" alt="">
-                            Trung Quân
+                            <img class="avatar-small" id="avatarUser" src="/images/users/<%= user.avatar %> " alt="">
+                            <span id="username-navbar"><%= user.username %></span>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
@@ -105,7 +109,7 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- content -->
     <div class="container-fluid">
         <div class="row content">
@@ -118,7 +122,7 @@
                             <option value="personal-chat">Trò chuyện cá nhân</option>
                             <option value="group-chat">Trò chuyện nhóm</option>
                         </select>
-                        <a href="#groupChatModal" class="create-group-chat" data-toggle="modal" 
+                        <a href="#groupChatModal" class="create-group-chat" data-toggle="modal"
                             title="Tạo một nhóm trò chuyện mới"></a>
                     </div>
                     <ul class="people no-padding-start">
@@ -152,7 +156,8 @@
                             <li class="person active" data-chat="person-default">
                                 <div class="left-avatar">
                                     <div class="dot online"></div>
-                                    <img class="avatar-online" src="/images/users/default-avatar-trungquandev-02.jpg" alt="">
+                                    <img class="avatar-online" src="/images/users/default-avatar-trungquandev-02.jpg"
+                                        alt="">
                                 </div>
                                 <span class="name">Trung Quân (admin)</span>
                                 <span class="time">Bây giờ</span>
@@ -186,25 +191,27 @@
                     </div>
                     <div class="content-chat">
                         <div class="chat" data-chat="">
-                            <div class="bubble me" data-mess-id="${item._id}">Hello, I'm Trung Quan, author of https://trungquandev.com</div>
-                            <div class="bubble you" data-mess-id="${item._id}">Really? I'm Trung Quan too, author of https://trungquandev.com, are you fake?</div>
+                            <div class="bubble me" data-mess-id="${item._id}">Hello, I'm Trung Quan, author of
+                                https://trungquandev.com</div>
+                            <div class="bubble you" data-mess-id="${item._id}">Really? I'm Trung Quan too, author of
+                                https://trungquandev.com, are you fake?</div>
                             <div class="bubble me" data-mess-id="${item._id}">This is me !!!</div>
                             <div class="bubble me bubble-image-file" data-mess-id="${item._id}">
                                 <img src="/images/users/default-avatar-trungquandev-01.jpg" class="show-image-chat">
                             </div>
                             <div class="bubble me bubble-image-file" data-mess-id="${item._id}">
-                                    <a href="/fileExample/Tệp văn bản - trungquandev.pdf" 
+                                <a href="/fileExample/Tệp văn bản - trungquandev.pdf"
                                     download="${ item.file.fileName }">
-                                        Tệp văn bản - trungquandev.pdf
-                                    </a>
-                                </div>
+                                    Tệp văn bản - trungquandev.pdf
+                                </a>
+                            </div>
                             <div class="bubble you" data-mess-id="${item._id}">And this is me @@ !!!</div>
                             <div class="bubble you bubble-image-file" data-mess-id="${item._id}">
                                 <img src="/images/users/default-avatar-trungquandev-02.jpg" class="show-image-chat">
                             </div>
                             <div class="bubble you bubble-image-file" data-mess-id="${item._id}">
-                                <a href="/fileExample/Tệp văn bản - trungquandev.docx" 
-                                download="${ item.file.fileName }">
+                                <a href="/fileExample/Tệp văn bản - trungquandev.docx"
+                                    download="${ item.file.fileName }">
                                     Tệp văn bản - trungquandev.docx
                                 </a>
                             </div>
@@ -219,7 +226,8 @@
                                 <i class="fa fa-photo"></i>
                             </label>
                             <label for="attach-chat">
-                                <input type="file" id="attach-chat" name="my-attach-chat" class="attach-chat" data-chat="">
+                                <input type="file" id="attach-chat" name="my-attach-chat" class="attach-chat"
+                                    data-chat="">
                                 <i class="fa fa-paperclip"></i>
                             </label>
                             <a href="#streamModal" id="video-chat" class="video-chat" data-chat="" data-toggle="modal">
@@ -297,6 +305,7 @@
 
     <!-- My js-->
     <script src="/js/mainConfig.js"></script>
+    <script src="/js/updateUser.js"></script>
 
     <!-- include('../contacts/contactsModal'); -->
     <div class="modal fade" id="contactsModal" role="dialog">
@@ -310,20 +319,23 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#find-user">Tìm người dùng</a></li>
                         <li><a data-toggle="tab" id="link-contacts" href="#contacts">
-                            Danh bạ <span class="show-number-contacts count-contacts">(100)</span>
-                        </a></li>
+                                Danh bạ <span class="show-number-contacts count-contacts">(100)</span>
+                            </a></li>
                         <li><a data-toggle="tab" id="link-request-contact-sent" href="#request-contact-sent">
-                            Đang chờ xác nhận <span class="show-number-contacts count-request-contact-sent">(100)</span>
-                        </a></li>
+                                Đang chờ xác nhận <span
+                                    class="show-number-contacts count-request-contact-sent">(100)</span>
+                            </a></li>
                         <li><a data-toggle="tab" id="link-request-contact-received" href="#request-contact-received">
-                            Yêu cầu kết bạn <span class="show-number-contacts count-request-contact-received">(100)</span>
-                        </a></li>
+                                Yêu cầu kết bạn <span
+                                    class="show-number-contacts count-request-contact-received">(100)</span>
+                            </a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="find-user" class="tab-pane fade in active">
                             <div class="find-user-top">
                                 <div class="input-group col-md-12">
-                                    <input type="text" class="form-control" placeholder="Nhập E-mail hoặc username..." />
+                                    <input type="text" class="form-control"
+                                        placeholder="Nhập E-mail hoặc username..." />
                                     <span class="input-group-btn">
                                         <button class="btn btn-lg" type="button">
                                             <i class="glyphicon glyphicon-search"></i>
@@ -336,11 +348,11 @@
                                     <li class="_contactList" data-uid="user._id">
                                         <div class="contactPanel">
                                             <div class="user-avatar">
-                                                <img src="/images/users/default-avatar-trungquandev-01.jpg" alt="">
+                                                <img src="/images/users/<%= user.avatar %> " alt="">
                                             </div>
                                             <div class="user-name">
                                                 <p>
-                                                    Trung Quân
+                                                    <%= user.username %>
                                                 </p>
                                             </div>
                                             <br>
@@ -431,7 +443,8 @@
                                             <div class="user-acccept-contact-received" data-uid="user._id">
                                                 Chấp nhận
                                             </div>
-                                            <div class="user-reject-request-contact-received action-danger" data-uid="user._id">
+                                            <div class="user-reject-request-contact-received action-danger"
+                                                data-uid="user._id">
                                                 Xóa yêu cầu
                                             </div>
                                         </div>
@@ -461,7 +474,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
     <!-- include('../images/imagesModal'); -->
     <div class="modal fade" id="imagesModal" role="dialog">
@@ -480,7 +493,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- include('../attachs/attachsModal'); -->
     <div class="modal fade" id="attachsModal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -492,14 +505,12 @@
                 <div class="modal-body">
                     <ul class="list-attachs">
                         <li>
-                            <a href="/fileExample/Tệp văn bản - trungquandev.pdf" 
-                            download="${ item.file.fileName }">
+                            <a href="/fileExample/Tệp văn bản - trungquandev.pdf" download="${ item.file.fileName }">
                                 Tệp văn bản - trungquandev.pdf
                             </a>
                         </li>
                         <li>
-                            <a href="/fileExample/Tệp văn bản - trungquandev.docx" 
-                            download="${ item.file.fileName }">
+                            <a href="/fileExample/Tệp văn bản - trungquandev.docx" download="${ item.file.fileName }">
                                 Tệp văn bản - trungquandev.docx
                             </a>
                         </li>
@@ -508,7 +519,7 @@
             </div>
         </div>
     </div>
-        
+
     <!-- include('../users/profileModal'); -->
     <div class="modal fade" id="user-profile-modal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -520,7 +531,8 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#seting-profile">Cài đặt chung</a></li>
-                        <li><a data-toggle="tab" id="link-to-password-profile" href="#password-profile">Quản lý mật khẩu</a></li>
+                        <li><a data-toggle="tab" id="link-to-password-profile" href="#password-profile">Quản lý mật
+                                khẩu</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="seting-profile" class="tab-pane fade in active">
@@ -530,53 +542,71 @@
                                     <div class="col-md-3">
                                         <div class="text-center" id="div-update-avatar">
                                             <div id="image-edit-profile">
-                                                <img src="/images/users/default-avatar-trungquandev-01.jpg" class="avatar img-circle" alt="avatar">
+                                                <img src="/images/users/<%=user.avatar %>" id="avatarUpdate" class="avatar img-circle"
+                                                    alt="avatar">
                                             </div>
                                             <h6>Tải lên một ảnh mới...</h6>
-                                            <input type="file" class="form-control" id="input-change-avatar" name="avatar"><br>
+                                            <input type="file" class="form-control" id="input-change-avatar"
+                                                name="avatar"><br>
                                             <div id="show-button-update-avatar"></div>
                                         </div>
                                     </div>
                                     <!-- edit form column -->
                                     <div class="col-md-9 personal-info">
-                                        <div class="alert alert-danger alert-dismissable">
+                                        <div class="alert alert-danger alert-dismissable alert-update-error">
                                             <a class="panel-close close" data-dismiss="alert">×</a>
-                                            Update user error example.<br>
+                                            <span> Update user error example.</span>
                                             <!-- <script>openProfileModal();</script> -->
                                         </div>
-    
-                                        <div class="alert alert-success alert-dismissable">
+
+                                        <div class="alert alert-success alert-dismissable alert-update-success">
                                             <a class="panel-close close" data-dismiss="alert">×</a>
-                                            Update user success example.<br>
+                                            <span> Update user success example.</span>
                                             <!-- <script>openProfileModal();</script> -->
                                         </div>
-    
+                                        <% if (user.local.email) { %>
                                         <h3>Local account.</h3>
+                                        <% } %>
+                                        <% if (user.facebook.email) { %>
                                         <h3>Facebook account.</h3>
+                                        <% } %>
+                                        <% if (user.google.email) { %>
                                         <h3>Google account.</h3>
-    
+                                        <% } %>
                                         <br>
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Email:</label>
                                             <div class="col-lg-8">
-                                                <div class="form-control" disabled>trungquandev@trungquandev.com</div>
+                                                <% if (user.local.email) { %>
+                                                <div class="form-control" disabled><%= user.local.email %></div>
+                                                <% } %>
+                                                <% if (user.facebook.email) { %>
+                                                <div class="form-control" disabled><%= user.facebook.mail %></div>
+                                                <% } %>
+                                                <% if (user.google.email) { %>
+                                                <div class="form-control" disabled><%= user.google.email %></div>
+                                                <% } %>
+
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Username:</label>
                                             <div class="col-md-8">
-                                                <input class="form-control" type="text" name="username" value="Trung Quân">
+                                                <input class="form-control" type="text" id="input-update-username" name="username"
+                                                    value="<%= user.username %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Giới tính:</label>
                                             <div class="col-lg-8">
                                                 <label class="radio-inline col-lg-2">Nam
-                                                    <input type="radio" name="gender" value="male" checked required>
+                                                    <input type="radio" name="gender" id="input-update-gender-male" value="male"
+                                                        <% if (user.gender === "male") { %> checked <% } %> required>
                                                     <span class="checkmark"></span>
                                                 </label>
                                                 <label class="radio-inline col-lg-2">Nữ
-                                                    <input type="radio" name="gender" value="female" required>
+                                                    <input type="radio" name="gender" id="input-update-gender-female" value="female"
+                                                        <% if (user.gender === "female") { %> checked <% } %> required>
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -584,21 +614,26 @@
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Địa chỉ:</label>
                                             <div class="col-lg-8">
-                                                <input class="form-control" type="text" name="address" value="Hà Nội, Việt Nam">
+                                                <input class="form-control" type="text" id="input-update-address" name="address"
+                                                    value="<%= user.address %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Số điện thoại:</label>
                                             <div class="col-lg-8">
-                                                <input class="form-control" type="text" name="phone" value="0123456789">
+                                                <input class="form-control" type="text" id="input-update-phone" name="phone"
+                                                    value="<%= user.phone %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label"></label>
                                             <div class="col-md-8">
-                                                <input type="submit" class="btn btn-primary custom-background-btn-primary" name="submit" value="Lưu lại">
+                                                <input type="button"
+                                                    class="btn btn-primary custom-background-btn-primary" id="updateInfo" name="submit"
+                                                    value="Lưu lại">
                                                 <span></span>
-                                                <input type="reset" class="btn btn-default custom-background-btn-reset" value="Hủy bỏ">
+                                                <input type="reset" class="btn btn-default custom-background-btn-reset"
+                                                    value="Hủy bỏ" id="cancelUpdate">
                                             </div>
                                         </div>
                                     </div>
@@ -625,27 +660,32 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Mật khẩu cũ</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="password" name="current_password" placeholder="Enter your curent password...">
+                                            <input class="form-control" type="password" name="current_password"
+                                                placeholder="Enter your curent password...">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Mật khẩu mới</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="password" name="new_password" placeholder="Enter new password...">
+                                            <input class="form-control" type="password" name="new_password"
+                                                placeholder="Enter new password...">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Nhập lại mật khẩu mới</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="password" name="confirm_new_password" placeholder="Enter confirm new password...">
+                                            <input class="form-control" type="password" name="confirm_new_password"
+                                                placeholder="Enter confirm new password...">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label"></label>
                                         <div class="col-md-8">
-                                            <input type="submit" class="btn btn-primary custom-background-btn-primary" value="Lưu lại">
+                                            <input type="submit" class="btn btn-primary custom-background-btn-primary"
+                                                value="Lưu lại">
                                             <span></span>
-                                            <input type="reset" class="btn btn-default custom-background-btn-reset" value="Hủy bỏ">
+                                            <input type="reset" class="btn btn-default custom-background-btn-reset"
+                                                value="Hủy bỏ">
                                         </div>
                                     </div>
                                 </form>
@@ -669,7 +709,8 @@
                     <div class="col-md-5 col-sm-12 find-user-add-to-group">
                         <div class="row form-search-to-add">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="btn-search-friend-to-add-group-chat" placeholder="Nhập E-mail hoặc username của bạn bè..." />
+                                <input type="text" class="form-control" id="btn-search-friend-to-add-group-chat"
+                                    placeholder="Nhập E-mail hoặc username của bạn bè..." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-lg" type="button">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -683,7 +724,7 @@
                                     <li data-uid="test-uid-01">
                                         <div class="contactPanel">
                                             <div class="user-avatar">
-                                                <img src="/images/users/avatar-default.jpg" alt="">
+                                                <img src="/images/users/defaultUser.png" alt="">
                                             </div>
                                             <div class="user-name">
                                                 <p>
@@ -727,7 +768,8 @@
                     <div class="col-md-5 col-sm-12 list-user-added">
                         <ul id="friends-added"></ul>
                         <div class="text-center" id="action-create-name-chat">
-                            <input type="text" class="form-control" id="name-group-chat" placeholder="Nhập tên nhóm trò chuyện..." />
+                            <input type="text" class="form-control" id="name-group-chat"
+                                placeholder="Nhập tên nhóm trò chuyện..." />
                             <br>
                             <button type="button" class="btn btn-primary" id="create-group-chat">Tạo</button>
                             <button type="button" class="btn btn-danger" id="cancel-group-chat">Hủy</button>
@@ -738,4 +780,5 @@
         </div>
     </div>
 </body>
+
 </html>
