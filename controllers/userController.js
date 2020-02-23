@@ -4,6 +4,7 @@ import {transErrors,transSuccess} from "../lang/vi"
 import uuid from 'uuid/v4';
 import handleUser from '../handleUser/handleUser';
 import fse from 'fs-extra';
+import resultValid from "express-validator/check"
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, paths.avatarStorage)
@@ -57,22 +58,37 @@ let updateAvatar = (req, res) => {
     })
 }
 let updateInfo = async (req, res) => {
-    try {
-        let infoUser = req.body;
+            try {
+                var arrErrors = [];
 
-        let userUpdate = await handleUser.updateUser(req.user._id, infoUser)
+                var objResult = resultValid.validationResult(req)
 
-        let result = {
-            messageSuccess: transSuccess.infoUpdated
-        }
-        res.status(200).send(result)
-    } catch (error) {
-        res.status(500).send(status)
-    }
+                if (objResult.isEmpty() === false) {
 
-}
+                    var arrResult = objResult.array()
+                    
+                    arrResult.forEach(element => {
+                        arrErrors.push(element.msg)
+                    });
+                    return res.status(500).send(arrErrors)
+                    
+                }
+                    let infoUser = req.body;
 
-module.exports = {
-    updateAvatar: updateAvatar,
-    updateInfo: updateInfo
-}
+                    let userUpdate = await handleUser.updateUser(req.user._id, infoUser)
+
+                    let result = {
+                        messageSuccess: transSuccess.infoUpdated
+                    }
+                    return res.status(200).send(result)
+                    
+                } catch (error) {
+                    return res.status(500).send(error)
+                }
+
+            }
+
+            module.exports = {
+                updateAvatar: updateAvatar,
+                updateInfo: updateInfo
+            }

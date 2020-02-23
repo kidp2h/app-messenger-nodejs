@@ -1,8 +1,11 @@
 export const transValidation = {
     emailIncorrect: "Email phải có dạng example@example.com !!",
-    genderIncorrect: "Gender phải là nam hoặc nữ",
+    genderIncorrect: "Giới tính  phải là nam hoặc nữ",
     passwordIncorrect: "Mật khẩu ít nhất 8 ký tự, bao gồm chữ hoa, chữ số ,chữ thường và ký tự đặc biệt",
-    confirmPasswordIncorrect: "Nhập lại mật khẩu chưa chính xác"
+    confirmPasswordIncorrect: "Nhập lại mật khẩu chưa chính xác",
+    userUpdate: "Tài khoản chỉ cho phép từ 3 đến 17 ký tự và không chứa ký tự đặc biệt",
+    addressUpdate: "Địa chỉ không hợp lệ. Chỉ dài khoảng 3 đến 30 ký tự",
+    phoneUpdate : "Số điện thoại không hợp lệ. Số điện thoại việt nam bắt đầu từ 0 và có độ dài 10-11 chữ số"
 
 }
 export const transErrors = {

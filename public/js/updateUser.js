@@ -59,19 +59,52 @@ $(document).ready(function () {
 
     /* ----------------- get Value in input to update info user ----------------- */
     $("#input-update-username").bind("change", function (e) {
-        newInfoUser.username = $(this).val();
+        let username = $(this).val()
+        if(username.match(/^[\s0-9a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/) == null || username < 3 || username > 17){
+            $(this).val(originInfoUser.username)
+            alertify.notify("Tài khoản chỉ cho phép từ 3 đến 17 ký tự và không chứa ký tự đặc biệt !!", "error", 5)
+            delete newInfoUser.username;
+            return false
+        }
+        newInfoUser.username = username;
     });
     $("#input-update-gender-male").bind("click", function (e) {
-        newInfoUser.gender = $(this).val();
+        let gender = $(this).val()
+        if(gender !== "male"){
+            alertify.notify("Giới tính  phải là nam hoặc nữ", "error", 5)
+            delete newInfoUser.gender;
+            return false
+        }
+        newInfoUser.gender = gender;
     });
     $("#input-update-gender-female").bind("click", function (e) {
-        newInfoUser.gender = $(this).val();
+        let gender = $(this).val()
+        if(gender !== "female"){
+            alertify.notify("Giới tính  phải là nam hoặc nữ", "error", 5)
+            delete newInfoUser.gender;
+            return false
+        }
+        newInfoUser.gender = gender;
     });
     $("#input-update-address").bind("change", function (e) {
-        newInfoUser.address = $(this).val();
+        let address = $(this).val();
+        if(address.length < 3 || address.length > 30){
+            $(this).val(originInfoUser.address)
+            alertify.notify("Địa chỉ không hợp lệ. Chỉ dài khoảng 3 đến 30 ký tự", "error", 5)
+            delete newInfoUser.address;
+            return false
+        }
+        newInfoUser.address = address;
     });
     $("#input-update-phone").bind("change", function (e) {
-        newInfoUser.phone = $(this).val();
+        let phone = $(this).val()
+        if(phone.match(/^(0)[0-9]{9,10}$/) == null || phone.length < 10 || phone.length > 11){
+            $(this).val(originInfoUser.phone)
+            alertify.notify("Số điện thoại không hợp lệ. Số điện thoại việt nam bắt đầu từ 0 và có độ dài 10-11 chữ số !!", "error", 5)
+            delete newInfoUser.phone;
+            return false
+        }
+        newInfoUser.phone = phone;
     });
 
     $("#updateInfo").bind("click", function (e) {
@@ -112,13 +145,18 @@ $(document).ready(function () {
                     success: function (response) {
                         if(response.messageSuccess){
                             $("#username-navbar").text(newInfoUser.username)
-                            $(".alert-update-success").slideDown().find("span").text(response.messageSuccess)
+                            //$(".alert-update-success").slideDown().find("span").text(response.messageSuccess)
                             alertify.notify(response.messageSuccess, "success", 5)
                         }
                     },
                     error: function (err) {
+                        arr = JSON.parse(err.responseText)//.split(",")
+                        console.log(typeof arr);
+                        console.log(arr);
+                        arr.forEach(element => {
+                            alertify.notify(element, "error", 5)
+                        });
                         
-                        alertify.notify(err.responseText, "error", 5)
                         $("#cancelUpdate").click();
                         return false
                     }
