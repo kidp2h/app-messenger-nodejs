@@ -84,21 +84,48 @@ UserSchema.statics = {
             "local.verifyToken": null
         }).exec();
     },
-    findUserById(id){
+    findUserById(id) {
         return this.findById(id).exec();
     },
-    findFacebookByUID(uid){
+    findFacebookByUID(uid) {
         return this.findOne({
-            "facebook.uid":uid
+            "facebook.uid": uid
         }).exec();
     },
-    updateInfoUser(id, item){
+    updateInfoUser(id, item) {
         return this.findByIdAndUpdate(id, item).exec()
+    },
+    updateUserPassword(id, hashPwd) {
+        return this.findByIdAndUpdate(id, {
+            "local.password": hashPwd
+        }).exec()
+    },
+    findAllUserForAddContact(deprecatedUserIds, keySearch) {
+        return this.find({
+            $and: [
+                {"_id": {$nin: deprecatedUserIds}},
+                {"local.isActive": true},
+                {$or: [
+                        {"username": {"$regex": keySearch}},
+                        {"local.email": {"$regex": keySearch}},
+                        {"facebook.email": {"$regex": keySearch}},
+                        {"google.email": {"$regex": keySearch}}
+                    ]}
+            ]
+        }, {
+            _id: 1,
+            address:1,
+            username: 1,
+            gender: 1,
+            phone: 1,
+            avatar: 1
+            
+        }).exec()
     }
 }
 UserSchema.methods = {
-    comparePassword(password){
-        return bcrypt.compare(password,this.local.password);
+    comparePassword(password) {
+        return bcrypt.compare(password, this.local.password);
     }
 }
 module.exports = mongoose.model("user", UserSchema)

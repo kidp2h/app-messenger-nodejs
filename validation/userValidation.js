@@ -16,6 +16,19 @@ let validationUpdate = [
         .optional()
         .matches(/^(0)[0-9]{9,10}$/)
 ];
+
+let validationUpdatePwd = [
+    check("currentPassword",transValidation.passwordIncorrect)
+    .isLength({min:8})
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/),
+    check("newPassword",transValidation.passwordIncorrect)
+    .isLength({min:8})
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/),
+    check("confirmNewPassword")
+    .custom((val,{req}) => val === req.body.newPassword)
+
+]
 module.exports = {
-    validationUpdate: validationUpdate
+    validationUpdate: validationUpdate,
+    validationUpdatePwd: validationUpdatePwd
 }

@@ -15,7 +15,9 @@ export const transErrors = {
     errorActive: "Tài khoản chưa được kích hoạt, xin vui lòng kiểm tra lại",
     loginFailed: "Sai tài khoản hoặc mật khẩu !! . Xin vui lòng thử lại",
     fileSize: "File quá lớn. Vui lòng upload đúng file ảnh !!!",
-    fileType: "Vui lòng upload đúng file ảnh. Hệ thống chỉ nhận file có đuôi [png, jpg, jpeg] !!!"
+    fileType: "Vui lòng upload đúng file ảnh. Hệ thống chỉ nhận file có đuôi [png, jpg, jpeg] !!!",
+    userUndefined: "Tài khoản này không tồn tại ? ",
+    currentPwd : "Mật khẩu hiện tại chưa chính xác !!"
 }
 export const transSuccess = {
     registerSuccess: "Đăng ký thành công !! . Vui lòng kiểm tra mail để kích hoạt tài khoản",
@@ -30,5 +32,6 @@ export const transSuccess = {
     loginSuccess: "Đăng nhập thành công. Hãy thưởng thức ứng dụng chat trực tuyến",
     logoutSuccess: "Đăng xuất thành công !!",
     avatarUpdated: "Cập nhật avatar thành công !!!",
-    infoUpdated: "Cập nhật thông tin thành công !!"
+    infoUpdated: "Cập nhật thông tin thành công !!",
+    passwordUpdated:"Cập nhật mật khẩu thành công !!"
 }

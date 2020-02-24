@@ -1,0 +1,24 @@
+<% users.forEach(element => { %>
+    <li class="_contactList" data-uid="<%= element._id %>">
+        <div class="contactPanel">
+            <div class="user-avatar">
+                <img src="/images/users/<%= element.avatar %>" alt="">
+            </div>
+            <div class="user-name">
+                <p>
+                    <%= element.username %>
+                </p>
+            </div>
+            <br>
+            <div class="user-address">
+                <span>&nbsp <%= element.address %></span>
+            </div>
+            <div class="user-add-new-contact" data-uid="<%= element._id %>">
+                Thêm vào danh sách liên lạc
+            </div>
+            <div class="user-remove-request-contact action-danger" data-uid="<%= element._id %>">
+                Hủy yêu cầu
+            </div>
+        </div>
+    </li>
+<% }) %>

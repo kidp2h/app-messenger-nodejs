@@ -1,6 +1,7 @@
 var renderMain = require("../controllers/mainController")
 var renderAuth = require("../controllers/authController")
 var renderUser = require("../controllers/userController")
+var renderContact = require("../controllers/contactController")
 import express from 'express';
 var router = express.Router();
 /* --------------------------------- LIBRARY -------------------------------- */
@@ -52,4 +53,7 @@ router.put("/updateAvatar", renderAuth.checkLogin, renderUser.updateAvatar)
 
 router.put("/updateInfoUser", renderAuth.checkLogin, userValid.validationUpdate, renderUser.updateInfo)
 
+router.put("/updatePassword", renderAuth.checkLogin, userValid.validationUpdatePwd ,renderUser.updatePassword)
+
+router.get("/contact/find-user/:keySearch",renderAuth.checkLogin,renderContact.findUserContact)
 module.exports = router;

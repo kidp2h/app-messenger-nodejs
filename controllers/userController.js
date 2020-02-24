@@ -45,7 +45,12 @@ let updateAvatar = (req, res) => {
             // update avatar to mongodb
             let userUpdate = await handleUser.updateUser(req.user._id, avatarUpdate)
             // remove avatar old
-            let rm = await fse.remove(`${paths.avatarStorage}/${userUpdate.avatar}`)
+            if(req.user.avatar = "defaultUser.png"){
+
+            }else{
+                let rm = await fse.remove(`${paths.avatarStorage}/${userUpdate.avatar}`)
+            }
+            
             // send back ajax handle data 
             let result = {
                 message: transSuccess.avatarUpdated,
@@ -58,37 +63,79 @@ let updateAvatar = (req, res) => {
     })
 }
 let updateInfo = async (req, res) => {
-            try {
-                var arrErrors = [];
+    try {
+        var arrErrors = [];
 
-                var objResult = resultValid.validationResult(req)
+        var objResult = resultValid.validationResult(req)
 
-                if (objResult.isEmpty() === false) {
+        if (objResult.isEmpty() === false) {
 
-                    var arrResult = objResult.array()
-                    
-                    arrResult.forEach(element => {
-                        arrErrors.push(element.msg)
-                    });
-                    return res.status(500).send(arrErrors)
-                    
-                }
-                    let infoUser = req.body;
+            var arrResult = objResult.array()
 
-                    let userUpdate = await handleUser.updateUser(req.user._id, infoUser)
+            arrResult.forEach(element => {
+                arrErrors.push(element.msg)
+            });
+            return res.status(500).send(arrErrors)
 
-                    let result = {
-                        messageSuccess: transSuccess.infoUpdated
-                    }
-                    return res.status(200).send(result)
-                    
-                } catch (error) {
-                    return res.status(500).send(error)
-                }
+        }
+        let infoUser = req.body;
 
+        let userUpdate = await handleUser.updateUser(req.user._id, infoUser)
+
+        let result = {
+            messageSuccess: transSuccess.infoUpdated
+        }
+        return res.status(200).send(result)
+
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+
+}
+
+let updatePassword = async (req,res) => {
+    try {
+        var arrErrors = [];
+
+        var objResult = resultValid.validationResult(req)
+
+        if (objResult.isEmpty() === false) {
+
+            var arrResult = objResult.array()
+
+            arrResult.forEach(element => {
+                arrErrors.push(element.msg)
+            });
+            return res.status(500).send(arrErrors)
+
+        }
+        let dataPw = req.body
+        
+        let updatePw = await handleUser.updatePwd(req.user._id,dataPw)
+        if(updatePw == true){
+            var result = {
+                messageSuccess : transSuccess.passwordUpdated,
+                type : "success"
             }
-
-            module.exports = {
-                updateAvatar: updateAvatar,
-                updateInfo: updateInfo
+            return res.status(200).send(result)
+        }else{
+            var result = {
+                messageSuccess : updatePw,
+                type : "error"
             }
+            return res.status(200).send(result)
+        }
+
+    
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+    
+}
+
+
+module.exports = {
+    updateAvatar: updateAvatar,
+    updateInfo: updateInfo,
+    updatePassword: updatePassword
+}

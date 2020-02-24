@@ -20,15 +20,15 @@ var postRegister = async (req, res) => {
         });
         console.log(arrErrors);
         req.flash("errors", arrErrors)
-        res.redirect("/login-register")
+        res.redirect("/users/login-register")
     } else {
         let result = await handleAuth.registerUser(req.body.email, req.body.password, req.body.gender, req.protocol, req.get("host"))
         if (result) {
             req.flash("errors", result)
-            res.redirect("/login-register")
+            res.redirect("/users/login-register")
         } else {
             req.flash("success", transSuccess.registerSuccess)
-            res.redirect("/login-register")
+            res.redirect("/users/login-register")
         }
 
     }
@@ -36,15 +36,16 @@ var postRegister = async (req, res) => {
 
 }
 
-var activeUser = (req, res) => {
+var activeUser = async (req, res) => {
     let codeActive = req.params.code;
-    let result = handleAuth.activeUser(codeActive)
+    let result = await handleAuth.activeUser(codeActive)
+    console.log(result);
     if (result) {
         req.flash("errors", result)
-        res.redirect("/login-register")
+        res.redirect("/users/login-register")
     } else {
         req.flash("success", transSuccess.activeSuccess)
-        res.redirect("/login-register")
+        res.redirect("/users/login-register")
     }
 
 }
