@@ -24,6 +24,10 @@ let ContactSchema = new Schema({
 })
 //create item in mongodb
 ContactSchema.statics = {
+    /**
+     * create new record
+     * @param {Object} itemObj 
+     */
     createNewRecord(itemObj) {
         return this.create(itemObj);
     },
@@ -37,6 +41,20 @@ ContactSchema.statics = {
                 }
             ]
         }).exec();
+    },
+    checkExistContact(userId, contactId){
+        return this.findOne({
+            $or : [
+                { $and :[ {"userId":userId}, {"contactId": contactId} ] },
+                { $and :[ {"userId":contactId}, {"contactId": userId} ] },
+            ]
+        }).exec()
+    },
+    removeContact(userId, contactId){
+        return this.remove({
+            $and : [ {"userId":userId}, {"contactId": contactId} ]
+        }).exec()
+        
     }
 }
 module.exports = mongoose.model("contact", ContactSchema)

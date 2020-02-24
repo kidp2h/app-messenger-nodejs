@@ -106,10 +106,10 @@ UserSchema.statics = {
                 {"_id": {$nin: deprecatedUserIds}},
                 {"local.isActive": true},
                 {$or: [
-                        {"username": {"$regex": keySearch}},
-                        {"local.email": {"$regex": keySearch}},
-                        {"facebook.email": {"$regex": keySearch}},
-                        {"google.email": {"$regex": keySearch}}
+                        {"username": {"$regex": new RegExp(keySearch,"i")}},
+                        {"local.email": {"$regex": new RegExp(keySearch,"i")}},
+                        {"facebook.email": {"$regex": new RegExp(keySearch,"i")}},
+                        {"google.email": {"$regex": new RegExp(keySearch,"i")}}
                     ]}
             ]
         }, {

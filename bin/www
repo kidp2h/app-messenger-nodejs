@@ -3,8 +3,8 @@
 /**
  * Module dependencies.
  */
-
-var app = require('../app');
+var app = require('../app').app;
+//var app = require('../app');
 var debug = require('debug')('app-messenger-nodejs:server');
 var http = require('http');
 var https = require('https')
@@ -22,8 +22,8 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
-
+//var server = http.createServer(app);
+var server = require('../app').server;
 /**
  * Listen on provided port, on all network interfaces.
  */

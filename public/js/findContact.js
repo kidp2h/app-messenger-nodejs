@@ -16,6 +16,8 @@ function callFindUser(element){
                         alertify.notify(data[0], "error", 5)
                     }
                     $("#find-user ul").html(data)
+                    addContact()
+                    removeRequestAddContact()
                     
                 })
             }
