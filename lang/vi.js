@@ -5,7 +5,8 @@ export const transValidation = {
     confirmPasswordIncorrect: "Nhập lại mật khẩu chưa chính xác",
     userUpdate: "Tài khoản chỉ cho phép từ 3 đến 17 ký tự và không chứa ký tự đặc biệt",
     addressUpdate: "Địa chỉ không hợp lệ. Chỉ dài khoảng 3 đến 30 ký tự",
-    phoneUpdate : "Số điện thoại không hợp lệ. Số điện thoại việt nam bắt đầu từ 0 và có độ dài 10-11 chữ số"
+    phoneUpdate : "Số điện thoại không hợp lệ. Số điện thoại việt nam bắt đầu từ 0 và có độ dài 10-11 chữ số",
+    keySearch : "Từ khoá tìm kiếm không được chứa ký tự đặc biệt và không được để trống"
 
 }
 export const transErrors = {

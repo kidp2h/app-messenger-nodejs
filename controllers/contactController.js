@@ -2,7 +2,9 @@
 import handleContact from '../handleContact/handleContact';
 import resultValid from "express-validator/check"
 let findUserContact = async (req, res) => {
-    var arrErrors = [];
+    
+    try {
+        var arrErrors = [];
 
     var objResult = resultValid.validationResult(req)
 
@@ -13,10 +15,11 @@ let findUserContact = async (req, res) => {
         arrResult.forEach(element => {
             arrErrors.push(element.msg)
         });
+        console.log(arrErrors);
         return res.status(500).send(arrErrors)
 
     }
-    try {
+    
         let newArr = []
         let keySearch = req.params.keySearch
         let currentIdUser = req.user._id
