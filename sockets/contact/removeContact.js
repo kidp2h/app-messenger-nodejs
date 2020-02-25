@@ -3,34 +3,32 @@
  * @param  io from socket.io lib
  */
 import {pushSocketIdToArray,emitNotificationToUser,removeSocketIdFromArray} from "../../helpers/socketIO"
-let addNewContact = (io) => {
+let removeContact = (io) => {
     let clients = {}
     io.on("connection", (socket) => {
-
+        //push id socket
         var currentUserId = socket.request.user._doc._id
         pushSocketIdToArray(clients,currentUserId,socket.id)
+        // emit Notification
         
-        socket.on("add-new-contact", (data) => {
+        socket.on("remove-contact", (data) => {
             let contactId = data.contactId
             let dataUser = socket.request.user._doc
             let currentUser = {
-                id: dataUser._id,
-                username: dataUser.username,
-                avatar: dataUser.avatar
+                id: dataUser._id
             }
-            if (clients[contactId]) {
-                emitNotificationToUser(clients, contactId, io, "res-add-new-contact",currentUser)
+            if (clients[data.contactId]) {
+                emitNotificationToUser(clients, contactId, io, "res-remove-contact",currentUser)
             }
 
         })
         // remove socket when user disconnect
         socket.on("disconnect", () => {
             removeSocketIdFromArray(clients, currentUserId,socket.id)
-            
         })
-        //console.log(clients);
+        console.log(clients);
     })
     
 }
 
-module.exports = addNewContact
+module.exports = removeContact

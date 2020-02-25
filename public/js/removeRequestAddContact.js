@@ -9,15 +9,18 @@ function removeRequestAddContact(){
                 if(data.success){
                     $("#find-user").find(`div.user-add-new-contact[data-uid = ${uid}]`).css("display","inline-block")
                     $("#find-user").find(`div.user-remove-request-contact[data-uid = ${uid}]`).hide()
-                    let currentNumberNotify = +$(".count-request-contact-sent").find("em").text()
-                    currentNumberNotify -= 1
-                    if(currentNumberNotify === 0){
-                        $(".count-request-contact-sent").find("em").html("")
-                    }else{
-                        $(".count-request-contact-sent").find("em").html(currentNumberNotify)
-                    }
+                    decreaseRequestContact("count-request-contact-sent")
+                    socket.emit("remove-contact", {
+                        contactId: uid
+                    })
                 }
             }
         });
     })
 }
+socket.on("res-remove-contact", function (dataUser) {
+    $(".noti_content").find(`span[data-uid = ${dataUser.id}]`).remove()
+    decreaseRequestContact("count-request-contact-received")
+    decreaseCountRequestContact("noti_contact_counter")
+    decreaseCountRequestContact("noti_counter")
+})
