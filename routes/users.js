@@ -9,6 +9,7 @@ import connectDatabase from "../config/connectDatabase"
 import contactModel from "../models/contactModel"
 import authValid from "../validation/authValidation"
 import userValid from "../validation/userValidation"
+import contactValid from '../validation/contactValidation';
 import passport from "passport"
 
 import initPassportLocal from "../controllers/passportControllers/local"
@@ -55,5 +56,5 @@ router.put("/updateInfoUser", renderAuth.checkLogin, userValid.validationUpdate,
 
 router.put("/updatePassword", renderAuth.checkLogin, userValid.validationUpdatePwd ,renderUser.updatePassword)
 
-router.get("/contact/find-user/:keySearch",renderAuth.checkLogin,renderContact.findUserContact)
+router.get("/contact/find-user/:keySearch",renderAuth.checkLogin, contactValid.validationKeySearch, renderContact.findUserContact)
 module.exports = router;

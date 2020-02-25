@@ -8,13 +8,15 @@ function callFindUser(element){
         }else{
             let regEx =  keySearch.match(/^[\s0-9a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/)
             if(regEx == null){
-                alertify.notify("Từ khoá tìm kiếm không được chứa ký tự", "error", 5)
+                alertify.notify("Từ khoá tìm kiếm không được chứa ký tự đặc biệt", "error", 5)
             return false
             }else{
-                console.log(keySearch);
                 $.get(`/users/contact/find-user/${keySearch}`,function(data){
-                    console.log(data);
+                    if(Array.isArray(data) == true){
+                        alertify.notify(data[0], "error", 5)
+                    }
                     $("#find-user ul").html(data)
+                    
                 })
             }
         }
