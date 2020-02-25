@@ -1,8 +1,11 @@
 export const transValidation = {
     emailIncorrect: "Email phải có dạng example@example.com !!",
-    genderIncorrect: "Gender phải là nam hoặc nữ",
+    genderIncorrect: "Giới tính  phải là nam hoặc nữ",
     passwordIncorrect: "Mật khẩu ít nhất 8 ký tự, bao gồm chữ hoa, chữ số ,chữ thường và ký tự đặc biệt",
-    confirmPasswordIncorrect: "Nhập lại mật khẩu chưa chính xác"
+    confirmPasswordIncorrect: "Nhập lại mật khẩu chưa chính xác",
+    userUpdate: "Tài khoản chỉ cho phép từ 3 đến 17 ký tự và không chứa ký tự đặc biệt",
+    addressUpdate: "Địa chỉ không hợp lệ. Chỉ dài khoảng 3 đến 30 ký tự",
+    phoneUpdate : "Số điện thoại không hợp lệ. Số điện thoại việt nam bắt đầu từ 0 và có độ dài 10-11 chữ số"
 
 }
 export const transErrors = {
@@ -12,7 +15,9 @@ export const transErrors = {
     errorActive: "Tài khoản chưa được kích hoạt, xin vui lòng kiểm tra lại",
     loginFailed: "Sai tài khoản hoặc mật khẩu !! . Xin vui lòng thử lại",
     fileSize: "File quá lớn. Vui lòng upload đúng file ảnh !!!",
-    fileType: "Vui lòng upload đúng file ảnh. Hệ thống chỉ nhận file có đuôi [png, jpg, jpeg] !!!"
+    fileType: "Vui lòng upload đúng file ảnh. Hệ thống chỉ nhận file có đuôi [png, jpg, jpeg] !!!",
+    userUndefined: "Tài khoản này không tồn tại ? ",
+    currentPwd : "Mật khẩu hiện tại chưa chính xác !!"
 }
 export const transSuccess = {
     registerSuccess: "Đăng ký thành công !! . Vui lòng kiểm tra mail để kích hoạt tài khoản",
@@ -27,5 +32,6 @@ export const transSuccess = {
     loginSuccess: "Đăng nhập thành công. Hãy thưởng thức ứng dụng chat trực tuyến",
     logoutSuccess: "Đăng xuất thành công !!",
     avatarUpdated: "Cập nhật avatar thành công !!!",
-    infoUpdated: "Cập nhật thông tin thành công !!"
+    infoUpdated: "Cập nhật thông tin thành công !!",
+    passwordUpdated:"Cập nhật mật khẩu thành công !!"
 }

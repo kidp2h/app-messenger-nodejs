@@ -4,6 +4,7 @@ import {transErrors,transSuccess} from "../lang/vi"
 import uuid from 'uuid/v4';
 import handleUser from '../handleUser/handleUser';
 import fse from 'fs-extra';
+import resultValid from "express-validator/check"
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, paths.avatarStorage)
@@ -44,7 +45,12 @@ let updateAvatar = (req, res) => {
             // update avatar to mongodb
             let userUpdate = await handleUser.updateUser(req.user._id, avatarUpdate)
             // remove avatar old
-            let rm = await fse.remove(`${paths.avatarStorage}/${userUpdate.avatar}`)
+            if(req.user.avatar = "defaultUser.png"){
+
+            }else{
+                let rm = await fse.remove(`${paths.avatarStorage}/${userUpdate.avatar}`)
+            }
+            
             // send back ajax handle data 
             let result = {
                 message: transSuccess.avatarUpdated,
@@ -58,6 +64,20 @@ let updateAvatar = (req, res) => {
 }
 let updateInfo = async (req, res) => {
     try {
+        var arrErrors = [];
+
+        var objResult = resultValid.validationResult(req)
+
+        if (objResult.isEmpty() === false) {
+
+            var arrResult = objResult.array()
+
+            arrResult.forEach(element => {
+                arrErrors.push(element.msg)
+            });
+            return res.status(500).send(arrErrors)
+
+        }
         let infoUser = req.body;
 
         let userUpdate = await handleUser.updateUser(req.user._id, infoUser)
@@ -65,14 +85,57 @@ let updateInfo = async (req, res) => {
         let result = {
             messageSuccess: transSuccess.infoUpdated
         }
-        res.status(200).send(result)
+        return res.status(200).send(result)
+
     } catch (error) {
-        res.status(500).send(status)
+        return res.status(500).send(error)
     }
 
 }
 
+let updatePassword = async (req,res) => {
+    try {
+        var arrErrors = [];
+
+        var objResult = resultValid.validationResult(req)
+
+        if (objResult.isEmpty() === false) {
+
+            var arrResult = objResult.array()
+
+            arrResult.forEach(element => {
+                arrErrors.push(element.msg)
+            });
+            return res.status(500).send(arrErrors)
+
+        }
+        let dataPw = req.body
+        
+        let updatePw = await handleUser.updatePwd(req.user._id,dataPw)
+        if(updatePw == true){
+            var result = {
+                messageSuccess : transSuccess.passwordUpdated,
+                type : "success"
+            }
+            return res.status(200).send(result)
+        }else{
+            var result = {
+                messageSuccess : updatePw,
+                type : "error"
+            }
+            return res.status(200).send(result)
+        }
+
+    
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+    
+}
+
+
 module.exports = {
     updateAvatar: updateAvatar,
-    updateInfo: updateInfo
+    updateInfo: updateInfo,
+    updatePassword: updatePassword
 }

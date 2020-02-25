@@ -32,12 +32,12 @@ var registerUser = async (email, password, gender,protocol,host) => {
 
         }
         let result = await UserModel.createNewRecord(listItem)
-        let linkActive = `${protocol}://${host}/users/active/${result.local.verifyToken}`
+        let linkActive = `${protocol}://${host}/users/active/${listItem.local.verifyToken}`
         
-       // console.log(hostMail)
-        //console.log(transSuccess.htmlContent(linkActive));
+        console.log(linkActive)
+        console.log(transSuccess.htmlContent(linkActive));
 
-       console.log(sendMailUser(email,transSuccess.subject,transSuccess.htmlContent(linkActive)))
+        sendMailUser(email,transSuccess.subject,transSuccess.htmlContent(linkActive))
     }
 }
 var activeUser = async(codeActive) => {
