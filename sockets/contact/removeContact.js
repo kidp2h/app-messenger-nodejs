@@ -7,7 +7,7 @@ let removeContact = (io) => {
     let clients = {}
     io.on("connection", (socket) => {
         //push id socket
-        var currentUserId = socket.request.user._doc._id
+        var currentUserId = socket.request.user._id
         pushSocketIdToArray(clients,currentUserId,socket.id)
         // emit Notification
         

@@ -1,5 +1,6 @@
 import UserModel from '../models/userModel';
 import ContactModel from '../models/contactModel';
+import NotificationModel from '../models/notificationModel'
 import _ from 'lodash/array';
 
 
@@ -27,6 +28,12 @@ let addNewContact = async (idUser,idContact) => {
             "contactId":idContact
         }
         let addNew = await ContactModel.createNewRecord(itemContact)
+        let notificationItem = {
+            senderId: idUser,
+            receiverId: idContact,
+            type : NotificationModel.types.ADD_CONTACT,
+        }
+        let addNotification = await NotificationModel.model.createNewRecord(notificationItem)
         return true
     }else{
         return false
@@ -38,7 +45,8 @@ let removeReqContact = async (idUser,idContact) => {
     if(checkExist){
         let remove = await ContactModel.removeContact(idUser,idContact)
         if(remove.result.ok == 1){
-            return true
+            let removeRequestAddContact = await NotificationModel.model.removeRequestAddContact(idUser, idContact, NotificationModel.types.ADD_CONTACT)
+            return true  
         }else{
             return false
         }

@@ -1276,3 +1276,6 @@ label:focus,
 #user-profile-modal input:hover, #user-profile-modal input:focus {
   border-color: #576574
 }
+.not-read{
+  background-color: #e1e6ed;
+}
