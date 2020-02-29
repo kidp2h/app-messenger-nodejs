@@ -57,4 +57,9 @@ router.put("/updateInfoUser", renderAuth.checkLogin, userValid.validationUpdate,
 router.put("/updatePassword", renderAuth.checkLogin, userValid.validationUpdatePwd ,renderUser.updatePassword)
 
 router.get("/contact/find-user/:keySearch",renderAuth.checkLogin, contactValid.validationKeySearch, renderContact.findUserContact)
+
+router.post("/contact/addNewContact",renderAuth.checkLogin, renderContact.addNewContact)
+
+router.delete("/contact/removeRequestContact",renderAuth.checkLogin, renderContact.removeReqContact)
+
 module.exports = router;

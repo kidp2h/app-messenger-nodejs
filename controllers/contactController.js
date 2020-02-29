@@ -34,6 +34,38 @@ let findUserContact = async (req, res) => {
     
     
 }
+
+let addNewContact = async (req, res) => {
+    try {
+        let contactId = req.body.cId
+        let currentUserId = req.user._id
+        let result = await handleContact.addNewContact(currentUserId, contactId)
+        //console.log(result);
+        if(result){
+            res.status(200).send({success: result})
+        }else{
+            res.status(500).send({success: result})
+        }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+let removeReqContact = async (req, res) => {
+    try {
+        let contactId = req.body.uid
+        let currentUserId = req.user._id
+        let result = await handleContact.removeReqContact(currentUserId, contactId) 
+        if(result){
+            res.status(200).send({success: result})
+        }else{
+            res.status(500).send({success: result})
+        }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
 module.exports = {
-    findUserContact: findUserContact
+    findUserContact: findUserContact,
+    addNewContact: addNewContact,
+    removeReqContact:removeReqContact
 }

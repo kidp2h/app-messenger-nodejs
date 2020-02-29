@@ -1,6 +1,7 @@
 /**
  * Created by https://trungquandev.com's author on 25/02/2018.
  */
+const socket = io();
 function nineScrollLeft() {
   $('.left').niceScroll({
     smoothscroll: true,
@@ -141,8 +142,13 @@ function cancelCreateGroup() {
     }
   });
 }
+function setCountNotifyNotRead(){
+  let countNotifyNotRead = $(".noti_content").find("span.not-read").length
+  $(".noti_counter").css("display", "block").html(countNotifyNotRead)
+}
 
 $(document).ready(function() {
+  setCountNotifyNotRead()
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
 
