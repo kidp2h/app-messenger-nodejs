@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <style>
         .swal2-popup {
-  font-size: 1.6rem !important;
-}
+            font-size: 1.6rem !important;
+        }
     </style>
 </head>
 
@@ -27,7 +27,7 @@
 
     <!-- include('navbar'); -->
     <nav class="navbar navbar-inverse no-margin-bottom">
-        <div class="container-fluid">
+        <div class="container-fluid main-content">
             <div class="navbar-header col-sm-3 navbar-left">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
@@ -65,18 +65,23 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" id="noti_Button" data-toggle="modal" title="Thông báo">
+                        <a href="javascript:void(0)" id="noti_Button" data-toggle="modal" title="Thông báo">
                             <i class="fa fa-globe"></i>
-                            <div class="noti_counter"></div>
+                            <% if (countNotiUnRead > 0) { %>
+                            <div class="noti_counter" style="display: block;"><%=countNotiUnRead%></div>
+                            <% }else{ %>
+                            <div class="noti_counter" style="display: none;"></div>
+                            <% } %>
+
                             <div id="noti_Container">
                                 <div id="notifications">
-                                    <h3>Đánh dấu tất cả là đã đọc</h3>
+                                    <h3 class="markReadAll">Đánh dấu tất cả là đã đọc</h3>
                                     <div class="noti_content">
                                         <% resultNotification.forEach(notifications => { %>
-                                                <%- notifications %> 
+                                        <%- notifications %>
                                         <% }) %>
                                     </div>
-                                    <div class="seeAll"><a href="#">Xem tất cả</a></div>
+                                    <div class="seeAll"><a href="#notificationModal" data-toggle="modal">Xem tất cả</a></div>
                                 </div>
                             </div>
                         </a>
@@ -300,7 +305,7 @@
     <script src="/bower_components/photoset-grid/jquery.photoset-grid.min.js"></script>
     <script src="/bower_components/jquery-colorbox/jquery.colorbox-min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    
+
     <!-- My js-->
     <script src="/js/mainConfig.js"></script>
     <script src="/js/updateUser.js"></script>
@@ -308,6 +313,8 @@
     <script src="/js/handleNotification.js"></script>
     <script src="/js/addContact.js"></script>
     <script src="/js/removeRequestAddContact.js"></script>
+    <script src="/js/loadMoreNotifications.js"></script>
+
 
 
     <!-- include('../contacts/contactsModal'); -->
@@ -501,6 +508,29 @@
             </div>
         </div>
     </div>
+    <!-- Notification modal see more -->
+    <div class="modal fade" id="notificationModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <a href="javascript:void(0)" class="markReadAll_modal">Đánh dấu tất cả là đã đọc</a>
+                    <hr>
+                    <ul class="list-notifications">
+                        
+                        <% resultNotification.forEach(notifications => { %>
+                            <li><%- notifications %></li>
+                        <% }) %>
+                    </ul>
+                    <hr>
+                    <center><a href="javascript:void(0)" class="loadMore_modal">Tải thêm 10 thông báo</a></center>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- include('../users/profileModal'); -->
     <div class="modal fade" id="user-profile-modal" role="dialog">
@@ -524,8 +554,8 @@
                                     <div class="col-md-3">
                                         <div class="text-center" id="div-update-avatar">
                                             <div id="image-edit-profile">
-                                                <img src="/images/users/<%=user.avatar %>" id="avatarUpdate" class="avatar img-circle"
-                                                    alt="avatar">
+                                                <img src="/images/users/<%=user.avatar %>" id="avatarUpdate"
+                                                    class="avatar img-circle" alt="avatar">
                                             </div>
                                             <h6>Tải lên một ảnh mới...</h6>
                                             <input type="file" class="form-control" id="input-change-avatar"
@@ -574,21 +604,23 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Username:</label>
                                             <div class="col-md-8">
-                                                <input class="form-control" type="text" id="input-update-username" name="username"
-                                                    value="<%= user.username %>">
+                                                <input class="form-control" type="text" id="input-update-username"
+                                                    name="username" value="<%= user.username %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Giới tính:</label>
                                             <div class="col-lg-8">
                                                 <label class="radio-inline col-lg-2">Nam
-                                                    <input type="radio" name="gender" id="input-update-gender-male" value="male"
-                                                        <% if (user.gender === "male") { %> checked <% } %> required>
+                                                    <input type="radio" name="gender" id="input-update-gender-male"
+                                                        value="male" <% if (user.gender === "male") { %> checked <% } %>
+                                                        required>
                                                     <span class="checkmark"></span>
                                                 </label>
                                                 <label class="radio-inline col-lg-2">Nữ
-                                                    <input type="radio" name="gender" id="input-update-gender-female" value="female"
-                                                        <% if (user.gender === "female") { %> checked <% } %> required>
+                                                    <input type="radio" name="gender" id="input-update-gender-female"
+                                                        value="female" <% if (user.gender === "female") { %> checked
+                                                        <% } %> required>
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -596,23 +628,23 @@
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Địa chỉ:</label>
                                             <div class="col-lg-8">
-                                                <input class="form-control" type="text" id="input-update-address" name="address"
-                                                    value="<%= user.address %>">
+                                                <input class="form-control" type="text" id="input-update-address"
+                                                    name="address" value="<%= user.address %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Số điện thoại:</label>
                                             <div class="col-lg-8">
-                                                <input class="form-control" type="text" id="input-update-phone" name="phone"
-                                                    value="<%= user.phone %>">
+                                                <input class="form-control" type="text" id="input-update-phone"
+                                                    name="phone" value="<%= user.phone %>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label"></label>
                                             <div class="col-md-8">
                                                 <input type="button"
-                                                    class="btn btn-primary custom-background-btn-primary" id="updateInfo" name="submit"
-                                                    value="Lưu lại">
+                                                    class="btn btn-primary custom-background-btn-primary"
+                                                    id="updateInfo" name="submit" value="Lưu lại">
                                                 <span></span>
                                                 <input type="reset" class="btn btn-default custom-background-btn-reset"
                                                     value="Hủy bỏ" id="cancelUpdate">
@@ -640,31 +672,33 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Mật khẩu cũ</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" id="input-current-password" type="password" name="current_password"
-                                                placeholder="Enter your curent password...">
+                                            <input class="form-control" id="input-current-password" type="password"
+                                                name="current_password" placeholder="Enter your curent password...">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Mật khẩu mới</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" id="input-new-password" type="password" name="new_password"
-                                                placeholder="Enter new password...">
+                                            <input class="form-control" id="input-new-password" type="password"
+                                                name="new_password" placeholder="Enter new password...">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Nhập lại mật khẩu mới</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="password" id="input-confirm-new-password" name="confirm_new_password"
-                                                placeholder="Enter confirm new password...">
+                                            <input class="form-control" type="password" id="input-confirm-new-password"
+                                                name="confirm_new_password" placeholder="Enter confirm new password...">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label"></label>
                                         <div class="col-md-8">
-                                            <input type="button" class="btn btn-primary btn-update-password-user custom-background-btn-primary"
+                                            <input type="button"
+                                                class="btn btn-primary btn-update-password-user custom-background-btn-primary"
                                                 value="Lưu lại">
                                             <span></span>
-                                            <input type="reset" class="btn btn-default reset-modal-password custom-background-btn-reset"
+                                            <input type="reset"
+                                                class="btn btn-default reset-modal-password custom-background-btn-reset"
                                                 value="Hủy bỏ">
                                         </div>
                                     </div>

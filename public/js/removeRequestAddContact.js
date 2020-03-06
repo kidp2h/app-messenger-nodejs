@@ -19,7 +19,8 @@ function removeRequestAddContact(){
     })
 }
 socket.on("res-remove-contact", function (dataUser) {
-    $(".noti_content").find(`span[data-uid = ${dataUser.id}]`).remove()
+    $(".noti_content").find(`div[data-uid = ${dataUser.id}]`).remove()
+    $("ul.list-notifications").find(`li>div[data-uid = ${dataUser.id}]`).parent().remove()
     decreaseRequestContact("count-request-contact-received")
     decreaseCountRequestContact("noti_contact_counter")
     decreaseCountRequestContact("noti_counter")

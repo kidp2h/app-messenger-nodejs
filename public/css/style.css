@@ -308,15 +308,14 @@ label:focus,
 }
 
 .noti_content {
-  position: relative;
-  height: 200px;
+  height: 300px;
   background-color: #fff;
   overflow: auto;
 }
 
-.noti_content>span {
-  position: absolute;
+.noti_content>div {
   max-width: 95%;
+  width: 300px;
   margin-top: 5px;
   margin-left: 7px;
   color: #333;
@@ -1278,4 +1277,44 @@ label:focus,
 }
 .not-read{
   background-color: #e1e6ed;
+}
+#noti_Button{
+  text-decoration: none;
+  cursor: pointer;
+}
+.list-notifications li>div {
+  border-radius: 20px;
+  width: 90%;
+  height: auto;
+  padding: 10px 0px 10px 0px;
+  margin: 0 auto;
+  list-style-type: none;
+}
+.list-notifications li {
+  border-radius: 20px;
+  width: 90%;
+  height: auto;
+  padding: 10px 0px 10px 0px;
+  margin: 0 auto;
+  list-style-type: none;
+}
+
+.list-notifications li>div:hover {
+  cursor: pointer;
+  background-color: #eceff1;
+}
+a.markReadAll_modal :hover{
+  color: gray;
+  text-decoration: none;
+}
+a.markReadAll_modal{
+  text-decoration: none;
+}
+
+a.loadMore_modal :hover{
+  color: gray;
+  text-decoration: none;
+}
+a.loadMore_modal{
+  text-decoration: none;
 }

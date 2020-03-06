@@ -14,6 +14,7 @@ let NotificationSchema = new Schema({
     }
 
 });
+const LIMIT_NOTIFICATION = 10 
 NotificationSchema.statics = {
     createNewRecord(item) {
         return this.create(item);
@@ -37,20 +38,36 @@ NotificationSchema.statics = {
             "receiverId": receiverId
         }).sort({
             "createdAt": -1
-        }).limit(10).exec()
+        }).limit(limit).exec()
+    },
+    getCountNotificationUnread(receiverId){
+        return this.find({
+            $and : [
+                {"receiverId":receiverId},
+                {"isRead":false}
+            ]
+        }).lean().exec()
+    },
+    loadMoreNotification(receiverId, skipNumber){
+        return this.find({
+            $and : [
+                {"receiverId" : receiverId},{"isRead":false}
+            ]
+        }).sort({"createdAt": -1}).skip(skipNumber).limit(LIMIT_NOTIFICATION).lean().exec()
     }
 }
 
 const TYPES_NOTIFICATION = {
     ADD_CONTACT: "ADD_CONTACT"
 }
+
 const CONTENT_NOTIFICATION = {
     getContent: (typeNotify, isRead, senderId, usernameSender, avatar) => {
         if(typeNotify == TYPES_NOTIFICATION.ADD_CONTACT){
             if(isRead == false){
-                return `<span class="not-read" data-uid="${senderId}"><img class="avatar-small" src="/images/users/${avatar}" alt=""><strong>${usernameSender}</strong> đã gửi cho bạn một lời mời kết bạn </span><br><br><br>`;
+                return `<div class="not-read" data-uid="${senderId}"><img class="avatar-small" src="/images/users/${avatar}" alt=""><strong>${usernameSender}</strong> đã gửi cho bạn một lời mời kết bạn </div>`;
             }else{
-                return `<span data-uid="${senderId}"><img class="avatar-small" src="/images/users/${avatar}" alt=""><strong>${usernameSender}</strong> đã gửi cho bạn một lời mời kết bạn </span><br><br><br>`;
+                return `<div data-uid="${senderId}"><img class="avatar-small" src="/images/users/${avatar}" alt=""><strong>${usernameSender}</strong> đã gửi cho bạn một lời mời kết bạn </div>`;
             }
         
     }

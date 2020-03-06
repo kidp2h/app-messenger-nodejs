@@ -2,6 +2,7 @@ var renderMain = require("../controllers/mainController")
 var renderAuth = require("../controllers/authController")
 var renderUser = require("../controllers/userController")
 var renderContact = require("../controllers/contactController")
+var renderNotification = require("../controllers/notificationController")
 import express from 'express';
 var router = express.Router();
 /* --------------------------------- LIBRARY -------------------------------- */
@@ -62,4 +63,5 @@ router.post("/contact/addNewContact",renderAuth.checkLogin, renderContact.addNew
 
 router.delete("/contact/removeRequestContact",renderAuth.checkLogin, renderContact.removeReqContact)
 
+router.get("/notification/loadMoreNotification", renderAuth.checkLogin, renderNotification.loadMore)
 module.exports = router;
