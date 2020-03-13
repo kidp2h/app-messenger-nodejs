@@ -77,7 +77,7 @@ function configNotification() {
     $('.noti_counter').fadeOut('slow');
     return false;
   });
-  $(document).click(function() {
+  $("main-content").click(function() {
     $('#notifications').fadeOut('fast', 'linear');
   });
 }
@@ -142,13 +142,15 @@ function cancelCreateGroup() {
     }
   });
 }
-function setCountNotifyNotRead(){
-  let countNotifyNotRead = $(".noti_content").find("span.not-read").length
-  $(".noti_counter").css("display", "block").html(countNotifyNotRead)
-}
+
+// function markReadAllNotifications(){
+//   $(".markReadAll").on("click",function(e){
+//     $(this).find("div.not-read").removeClass("not-read")
+//     e.preventDefault()
+//   })
+// }
 
 $(document).ready(function() {
-  setCountNotifyNotRead()
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
 
