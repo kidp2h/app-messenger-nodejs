@@ -10,7 +10,7 @@ export DB_PASSWORD=""
 #config email server
 
 export MAIL_USERNAME=thjnhsoajca@gmail.com
-export MAIL_PASSWORD=sliverdz2604
+export MAIL_PASSWORD=Sliverdz2604
 export MAIL_HOST=smtp.gmail.com
 export MAIL_PORT=587
 

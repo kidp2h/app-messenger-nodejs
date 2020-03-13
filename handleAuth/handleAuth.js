@@ -34,8 +34,8 @@ var registerUser = async (email, password, gender,protocol,host) => {
         let result = await UserModel.createNewRecord(listItem)
         let linkActive = `${protocol}://${host}/users/active/${listItem.local.verifyToken}`
         
-        console.log(linkActive)
-        console.log(transSuccess.htmlContent(linkActive));
+        // console.log(linkActive)
+        // console.log(transSuccess.htmlContent(linkActive));
 
         sendMailUser(email,transSuccess.subject,transSuccess.htmlContent(linkActive))
     }
