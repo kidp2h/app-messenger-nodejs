@@ -10,7 +10,7 @@ var passport = require("passport")
 var http = require("http")
 var socketio = require("socket.io")
 var passportSocketio = require("passport.socketio")
-
+var bodyParser = require('body-parser')
 var initSockets = require("./sockets/index")
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -45,7 +45,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 
-
+app.use(bodyParser.json())
 
 app.use(flash());
 app.use(session({

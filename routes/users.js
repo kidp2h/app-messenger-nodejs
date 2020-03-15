@@ -64,4 +64,7 @@ router.post("/contact/addNewContact",renderAuth.checkLogin, renderContact.addNew
 router.delete("/contact/removeRequestContact",renderAuth.checkLogin, renderContact.removeReqContact)
 
 router.get("/notification/loadMoreNotification", renderAuth.checkLogin, renderNotification.loadMore)
+
+router.post("/notification/markReadAllNotification", renderAuth.checkLogin, renderNotification.markReadAll)
+
 module.exports = router;
