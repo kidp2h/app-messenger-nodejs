@@ -51,9 +51,17 @@ NotificationSchema.statics = {
     loadMoreNotification(receiverId, skipNumber){
         return this.find({
             $and : [
-                {"receiverId" : receiverId},{"isRead":false}
+                {"receiverId" : receiverId}
             ]
         }).sort({"createdAt": -1}).skip(skipNumber).limit(LIMIT_NOTIFICATION).lean().exec()
+    },
+    markReadAllNotification(receiverId, notifications){
+        return this.updateMany({
+                $and : [
+                {"receiverId" : receiverId},
+                {"senderId": { $in: notifications }}
+                ]
+            },{"isRead" : true}).exec()
     }
 }
 
