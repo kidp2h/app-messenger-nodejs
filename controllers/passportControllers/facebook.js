@@ -5,9 +5,11 @@ import {transErrors, transSuccess} from "../../lang/vi"
 
 let FacebookStrategy = passportFacebook.Strategy
 
+// set up variable enviroment
 const fbAppID = process.env.CLIENT_ID
 const fbKeySecret = process.env.KEY_SECRET
 const fbCallbackURL = process.env.CALLBACK_URL
+
 let initPassportFacebook = () => {
     passport.use(new FacebookStrategy({
         clientID : fbAppID,

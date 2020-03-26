@@ -5,6 +5,8 @@ import uuid from 'uuid/v4';
 import handleUser from '../handleUser/handleUser';
 import fse from 'fs-extra';
 import resultValid from "express-validator/check"
+
+// init storage to save file image user upload
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, paths.avatarStorage)
@@ -21,6 +23,7 @@ var storage = multer.diskStorage({
 
 })
 
+// define multer
 var uploadFile = multer({
     storage: storage,
     limits: {
@@ -65,26 +68,25 @@ let updateAvatar = (req, res) => {
 let updateInfo = async (req, res) => {
     try {
         var arrErrors = [];
-
-        var objResult = resultValid.validationResult(req)
+        var objResult = resultValid.validationResult(req) // check data
 
         if (objResult.isEmpty() === false) {
-
             var arrResult = objResult.array()
 
             arrResult.forEach(element => {
                 arrErrors.push(element.msg)
             });
+
             return res.status(500).send(arrErrors)
-
         }
-        let infoUser = req.body;
 
-        let userUpdate = await handleUser.updateUser(req.user._id, infoUser)
+        let infoUser = req.body;
+        let userUpdate = await handleUser.updateUser(req.user._id, infoUser) // update data to database
 
         let result = {
             messageSuccess: transSuccess.infoUpdated
         }
+
         return res.status(200).send(result)
 
     } catch (error) {

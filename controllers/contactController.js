@@ -64,8 +64,16 @@ let removeReqContact = async (req, res) => {
         res.status(500).send(error)
     }
 }
+let getContacts = async(req, res) => {
+    try {
+        let result = await handleContact.getContacts(req.user._id)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
 module.exports = {
     findUserContact: findUserContact,
     addNewContact: addNewContact,
-    removeReqContact:removeReqContact
+    removeReqContact:removeReqContact,
+    getContacts: getContacts
 }

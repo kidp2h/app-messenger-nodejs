@@ -1,13 +1,11 @@
 import passport from "passport"
 import passportLocal from "passport-local"
 import UserModel from "../../models/userModel"
-import {
-  transErrors,
-  transSuccess
-} from "../../lang/vi"
+import {transErrors, transSuccess} from "../../lang/vi"
 
 let LocalStrategy = passportLocal.Strategy
 
+// init passport local (check data input)
 let initPassportLocal = () => {
   passport.use(new LocalStrategy({
     usernameField: "email",

@@ -50,8 +50,8 @@ let loadMore = (currentUserId,skipNumber) => {
 let markReadAll = (currentUserId, notifications) => {
     return new Promise(async (resolve, reject) => {
         try{
-            //console.log(typeof notifications); // ->> string , so I convert to array
-            let notificationsArr = JSON.parse(notifications);
+            
+            let notificationsArr = JSON.parse(notifications); // ->> string , so I convert to array
             let data = await NotificationModel.model.markReadAllNotification(currentUserId,notificationsArr)
             console.log(data);
             return resolve(data)
