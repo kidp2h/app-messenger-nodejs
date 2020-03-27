@@ -1,5 +1,5 @@
 
-# Awesome-Chat-Template-Frontend
+# Chat-Template-Frontend
 
 - bootstrap: **^3.3.7**
 - font-awesome **^4.7.0**
