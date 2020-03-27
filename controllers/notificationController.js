@@ -1,4 +1,5 @@
 import handleNotification from '../handleNotification/handleNotification';
+
 let loadMore = async(req, res) => {
     try {
         let index = +(req.query.index);
@@ -11,12 +12,12 @@ let loadMore = async(req, res) => {
         return res.status(500).send(error)
     }
 }
+
 let markReadAll = async (req, res) => {
     try {
-    	let notification = req.body.allNotifcation
+        let notification = req.body.allNotifcation
         let result = await handleNotification.markReadAll(req.user._id,notification)
-        //console.log(result);
-        return res.status(200).send(req.body.allNotifcation)
+        return res.status(200).send(result)
     } catch (error) {
         return res.status(500).send(error)
     }

@@ -2,17 +2,11 @@ import UserModel from "../models/userModel"
 import bcrypt from "bcrypt";
 import uuid from "uuid/v4"
 import sendMailUser from "../config/mailer"
-import {
-    transErrors
-} from "../lang/vi"
-import {
-    transSuccess
-} from "../lang/vi"
-import nodemailer from "nodemailer"
+import {transErrors} from "../lang/vi"
+import {transSuccess} from "../lang/vi"
 
+//define bcrypt to encrypt password
 const saltRounds = 10;
-
-
 let salt = bcrypt.genSaltSync(saltRounds)
 
 var registerUser = async(email, password, gender, protocol, host) => {
@@ -35,11 +29,12 @@ var registerUser = async(email, password, gender, protocol, host) => {
             }
 
         }
-        let result = await UserModel.createNewRecord(listItem)
-        let linkActive = `${protocol}://${host}/users/active/${listItem.local.verifyToken}`
-        sendMailUser(email, transSuccess.subject, transSuccess.htmlContent(linkActive))
+        let result = await UserModel.createNewRecord(listItem) // insert user to database
+        let linkActive = `${protocol}://${host}/users/active/${listItem.local.verifyToken}` //declare link active to send mail user to active account
+        sendMailUser(email, transSuccess.subject, transSuccess.htmlContent(linkActive)) // send mail
     }
 }
+
 var activeUser = async(codeActive) => {
     let action = await UserModel.active(codeActive)
     if (action === null) {

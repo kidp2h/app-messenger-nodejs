@@ -11,23 +11,22 @@ var indexLoginRegister = (req, res) => {
 
 var postRegister = async (req, res) => {
     var arrErrors = [];
-    //var arrSuccess = []
-    var objResult = result.validationResult(req)
+
+    var objResult = result.validationResult(req) // check data when user register 
     if (objResult.isEmpty() === false) {
         var arrResult = objResult.array()
         arrResult.forEach(element => {
             arrErrors.push(element.msg)
         });
-        console.log(arrErrors);
-        req.flash("errors", arrErrors)
+        req.flash("errors", arrErrors) // send notification to view when data not illegal
         res.redirect("/users/login-register")
     } else {
         let result = await handleAuth.registerUser(req.body.email, req.body.password, req.body.gender, req.protocol, req.get("host"))
         if (result) {
-            req.flash("errors", result)
+            req.flash("errors", result) // if account exist ,...
             res.redirect("/users/login-register")
         } else {
-            req.flash("success", transSuccess.registerSuccess)
+            req.flash("success", transSuccess.registerSuccess) // send notification to view if true
             res.redirect("/users/login-register")
         }
 
@@ -39,7 +38,6 @@ var postRegister = async (req, res) => {
 var activeUser = async (req, res) => {
     let codeActive = req.params.code;
     let result = await handleAuth.activeUser(codeActive)
-    console.log(result);
     if (result) {
         req.flash("errors", result)
         res.redirect("/users/login-register")

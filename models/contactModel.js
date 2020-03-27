@@ -33,13 +33,7 @@ ContactSchema.statics = {
     },
     findAllByIdUser(idUser) {
         return this.find({
-            $or: [{
-                    "userId": idUser
-                },
-                {
-                    "contactId": idUser
-                }
-            ]
+            $or: [ {"userId": idUser}, {"contactId": idUser} ]
         }).exec();
     },
     checkExistContact(userId, contactId){
@@ -55,6 +49,22 @@ ContactSchema.statics = {
             $and : [ {"userId":userId}, {"contactId": contactId} ]
         }).exec()
         
-    }
+    },
+    getContacts(userId){
+        return this.find({
+            $and : [ 
+                {$or : [ {"userId": userId}, {"contactId": userId} ]},
+                {"status":false}
+            ]
+        }).lean().exec()
+    },
+    getContactsNotConfirm(userId){
+        return this.find({
+            $and : [ 
+                {$or : [ {"userId": userId}, {"contactId": userId} ]},
+                {"status":false}
+            ]
+        }).lean().exec()
+    },
 }
 module.exports = mongoose.model("contact", ContactSchema)

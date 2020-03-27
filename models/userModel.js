@@ -121,7 +121,10 @@ UserSchema.statics = {
             avatar: 1
             
         }).exec()
-    }
+    },
+    findUserLeanById(id) {
+        return this.findById(id).lean().exec();
+    },
 }
 UserSchema.methods = {
     comparePassword(password) {
